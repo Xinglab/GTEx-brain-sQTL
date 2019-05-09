@@ -16,6 +16,6 @@ for i in {1..22}       #each chromosome
 do 
 jobname="chr_"$i"_LD"
 #echo $jobname
-/u/systems/UGE8.0.1/bin/lx-amd64/qsub -N $jobname $code_folder/Genome_wide_LD_calculation.sh $i
+/u/systems/UGE8.0.1/bin/lx-amd64/qsub -N $jobname $code_folder/02_Genome_wide_LD_calculation.sh $i
 done
 
