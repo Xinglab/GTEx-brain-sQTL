@@ -90,13 +90,7 @@ findpos=function(exoninfo,shortexonID,snppos,splicetype){         #classify SNPs
     }else if (SNPpos>=newexonstart && SNPpos<=newexonend){
       label="exon"
       return(label)
-    }else if (dis<=100){
-      label="<=100bp"
-      return(label)
-    }else if (dis>100 && dis<=200){
-      label="<=200bp"
-      return(label)
-    }else if (dis>200 && dis<=300){
+    }else if (dis<=300){
       label="<=300bp"
       return(label)
     }else{
@@ -150,13 +144,7 @@ findpos=function(exoninfo,shortexonID,snppos,splicetype){         #classify SNPs
     }else if (SNPpos>=exonstart && SNPpos<=exonend){
       label="exon"
       return(label)
-    }else if (dis<=100){
-      label="<=100bp"
-      return(label)
-    }else if (dis>100 && dis<=200){
-      label="<=200bp"
-      return(label)
-    }else if (dis>200 && dis<=300){
+    }else if (dis<=300){
       label="<=300bp"
       return(label)
     }else{
@@ -210,14 +198,8 @@ findpos=function(exoninfo,shortexonID,snppos,splicetype){         #classify SNPs
     }else if (SNPpos>=exonstart && SNPpos<=exonend){
       label="exon"
       return(label)
-    }else if (dis<=100){
+    }else if (dis<=300){
       label="<=100bp"
-      return(label)
-    }else if (dis>100 && dis<=200){
-      label="<=200bp"
-      return(label)
-    }else if (dis>200 && dis<=300){
-      label="<=300bp"
       return(label)
     }else{
       label=">300bp"
@@ -232,7 +214,7 @@ pick_category=function(list_of_category,order_of_importance){
   return(reorderedlist)
 }
 
-importance_order=c("dinucleotide", "SS", "exon", "<=100bp", "<=200bp","<=300bp", ">300bp")
+importance_order=c("dinucleotide", "SS", "exon", "<=300bp", ">300bp")
 
 for (splicetype in splicetypelist){
   for (type in typelist){
@@ -315,8 +297,9 @@ for (splicetype in splicetypelist){
     setwd(outputpath)
     pdf(paste(splicetype,type,"SNP_to_SS_distance_vs_brain_region_specificity_violin_plot.pdf"),height=6,width=6)
     p <- ggplot(df, aes(x=dis_2_SS, y=num.sig.region, fill=dis_2_SS)) + 
-      geom_violin(scale="width") + stat_summary(fun.y=mean, geom="point", shape=23, size=2) + geom_boxplot(width=0.2) + geom_jitter(shape=16, position=position_jitter(0.05)) + 
-      labs(x = "distance to splice site", y="number of significant regions") + 
+      scale_fill_manual(values=c("#FDC086", "#BEAED4", "#0F0C73","#26908E","#626565")) +
+      geom_violin(scale="width") + stat_summary(fun.y=mean, geom="point", shape=23, size=2) + geom_boxplot(width=0.2) + 
+      labs(x = "Location of SNP", y="No. of significant regions") + 
       scale_y_continuous(breaks = round(seq(0, 13, by = 1),1)) + 
       theme(
         # axis
@@ -340,22 +323,28 @@ for (splicetype in splicetypelist){
     print(p)
     dev.off()
     
+
     ###cdf plot###
     cdfdf=melt(df)
     setwd(outputpath)
-    pdf(paste(splicetype,type,"SNP_to_SS_distance_vs_brain_region_specificity_CDF_plot.pdf"),height=6,width=6)
-    p=ggplot(cdfdf, aes(x=value)) + stat_ecdf(aes(colour=dis_2_SS)) + scale_color_brewer(palette="Dark2") +
+    pdf(paste(splicetype,type,"SNP_to_SS_distance_vs_brain_region_specificity_CDF_plot.pdf"),height=4,width=4)
+    p=ggplot(cdfdf, aes(x=value)) + stat_ecdf(aes(colour=dis_2_SS)) + 
+      #scale_color_brewer(palette="Accent") +
+      scale_color_manual(values=c("#FDC086", "#BEAED4", "#0F0C73","#26908E","#626565")) + 
+      #scale_color_npg() + 
       labs(x = "number of significant regions", y="") +
-      scale_x_continuous(breaks = round(seq(1, 13, by = 1),1)) +  
-      expand_limits(x = 1, y = 0) + 
+      scale_x_continuous(breaks = round(seq(0, 13, by = 1),1)) +  
       theme(
         # axis
         axis.title.x = element_text(face="bold", size=16, margin = margin(t = 10, r = 0, b = 0, l = 0)),
         axis.title.y = element_text(face="bold", size=12, margin = margin(t = 0, r = 10, b = 0, l = 0), angle=90),
         axis.text = element_text(size = rel(1.1)),
-        axis.text.x = element_text(hjust = 0.5, vjust = 0, size=12),
+        axis.text.x = element_text(hjust = 0.5, vjust = 0, size=8),
         axis.text.y = element_text(vjust = 0.5, hjust = 0, size=12),
         axis.line = element_line(colour = "black"),
+        
+        #legend
+        legend.key=element_blank(),
         
         #background
         panel.background = element_blank(),
@@ -364,13 +353,13 @@ for (splicetype in splicetypelist){
         strip.text=element_text(size = rel(1.3)),
         aspect.ratio=1,
         complete = T)
-    
     print(p)
     dev.off()
     
+    
     ###cdf plot version 2###
     setwd(outputpath)
-    pdf(paste(splicetype,type,"SNP_to_SS_distance_vs_brain_region_specificity_CDF_plot.pdf"),height=6,width=6)
+    pdf(paste(splicetype,type,"SNP_to_SS_distance_vs_brain_region_specificity_CDF_plot2.pdf"),height=6,width=6)
     plot(ecdf(df[df$dis_2_SS=="dinucleotide",]$num.sig.region),
          verticals=TRUE, 
          do.points=FALSE,
@@ -383,7 +372,7 @@ for (splicetype in splicetypelist){
          bty="n",
          #xaxs="i",
          #yaxs="i",
-         col="#7FC97F")
+         col="#FDC086")
     axis(1, at=1:13, labels=1:13)
     lines(ecdf(df[df$dis_2_SS=="SS",]$num.sig.region),
           verticals=TRUE, do.points=FALSE,col.01line = NULL,
@@ -394,27 +383,24 @@ for (splicetype in splicetypelist){
           verticals=TRUE, do.points=FALSE,col.01line = NULL,
           lwd=5,
           xlim=c(1,13),
-          col="#FDC086")
-    lines(ecdf(df[df$dis_2_SS=="<=100bp",]$num.sig.region),
-          verticals=TRUE, do.points=FALSE,col.01line = NULL,
-          lwd=5,
-          xlim=c(1,13),
-          col="#386CB0")
-    lines(ecdf(df[df$dis_2_SS=="<=200bp",]$num.sig.region),
-          verticals=TRUE, do.points=FALSE,col.01line = NULL,
-          lwd=5,
-          xlim=c(1,13),
-          col="#F0027F")
+          col="#0F0C73")
     lines(ecdf(df[df$dis_2_SS=="<=300bp",]$num.sig.region),
           verticals=TRUE, do.points=FALSE,col.01line = NULL,
           lwd=5,
           xlim=c(1,13),
-          col="#BF5B17")
+          col="#26908E")
     lines(ecdf(df[df$dis_2_SS==">300bp",]$num.sig.region),
           verticals=TRUE, do.points=FALSE,col.01line = NULL,
           lwd=5,
           xlim=c(1,13),
-          col="#666666")
+          col="#626565")
     dev.off()
   }
 }
+
+
+
+
+
+
+
