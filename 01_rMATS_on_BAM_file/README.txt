@@ -1,0 +1,1 @@
+The purpose of this code is to run rMATS-turbo on GTEx BAM files. The sample code here contains the code for running rMATS-turbo on one GTEx BAM file. 

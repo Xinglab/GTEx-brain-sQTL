@@ -4,17 +4,13 @@ counttype="JC"       #JCEC (junction count + exon body count) or JC (junction co
 ##################
 #Input parameters#
 ##################
-inputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/brain_rMATS_post"     
+inputpath="input/path/for/rMATS/output"     
+outputpath="output/path"
 
 inputcount=paste(counttype,".raw.input.",splicetype,".txt",sep="")
 inputexon=paste("fromGTF.",splicetype,".txt",sep="")
-annotationpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/document/V7_annotation"
-annotationname="GTEx_v7_Annotations_SubjectPhenotypesDS.txt"          #phenotype information
-IDconversionpath=annotationpath
-IDconversionname="gtex_v7_brain.csv"               
-rootoutput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/1_get_matrix_from_rMATS/result/",counttype,sep="")
 
-command=paste("mkdir -p ",rootoutput,sep="")    #create output folder if not exist
+command=paste("mkdir -p ",outputpath,sep="")    #create output folder if not exist
 system(command)
 
 b1path=inputpath
@@ -121,7 +117,6 @@ delta_psi=apply(PSI_filter,1,deltapsi)
 PSI_filter=PSI_filter[which(delta_psi>0.05),]
 
 #output result
-outputpath=rootoutput
 setwd(outputpath)
 
 IC_filter=IC[rownames(PSI_filter),]
