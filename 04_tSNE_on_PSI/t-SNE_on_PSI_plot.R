@@ -2,7 +2,7 @@
 #read in the annotation information#
 ####################################
 label="logit"
-phenotypepath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/2_get_phenotype_information/result"
+phenotypepath="./03_Get_sample_annotation/example_output"
 setwd(phenotypepath)
 age=read.table("agetable_brain.txt",sep="\t",header=T)           
 gender=read.table("gendertable_brain.txt",sep="\t",header=T)          #current gender is numeric data, not categorical data. It needs to be changed to categorical data for further model fitting
@@ -28,10 +28,13 @@ rownames(batch)=c("collection site",
 #SMGEBTCHT: Type of genotype or expression batch
 
 #population information
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/gtex_v7_phenotype")
+phenotypeinput="./04_tSNE_on_PSI/example_input"
+setwd(phenotypeinput)
 phenotypename="phs000424.v7.pht002742.v7.p2.c1.GTEx_Subject_Phenotypes.GRU.txt"
 phenotype=read.table(phenotypename,sep="\t",skip=10,header=T,fill=TRUE,quote="")
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/document/V7_annotation")
+
+annotationinput="./03_Get_sample_annotation/example_input"
+setwd(annotationinput)
 annotation=read.csv("gtex_v7_brain.csv",header=T)
 race=rep(NA,dim(gender)[2])
 for (i in 1:dim(gender)[2]){
@@ -111,14 +114,14 @@ for (i in 1:length(splicelist)){
     ######################
     #read in t-SNE result#
     ######################
-    inputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/4.3_data_inspection_t-SNE/result/",paste(label,"_PSI",sep=""),"/",counttype,sep="")
+    inputpath="./04_tSNE_on_PSI/example_output"
     setwd(inputpath)
     sampleplot=read.table(paste(splicetype,"_",counttype,"_tsne_sample_",label,"_PSI.txt",sep=""),sep="\t",header=T)
     
     ######
     #plot#
     ######
-    outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/4.3_data_inspection_t-SNE/result/",paste(label,"_PSI",sep=""),"/","plot",sep="")
+    outputpath="./04_tSNE_on_PSI/example_output"
     setwd(outputpath)
     
     filename=paste(label,"_",splicetype,"_",counttype,"_t-SNE_plot.pdf",sep="")

@@ -1,7 +1,7 @@
 splicetype="SE"      #type of alternative splicing, e.g., SE, A3SS, A5SS, MXE, IR
 counttype="JC"       #JCEC (junction count + exon body count) or JC (junction count only)
 
-inputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/4.2_data_inspection_imputation/result/",counttype,sep="")
+inputpath="./02_PSI_value_quantification/02_Imputation/example_output"
 setwd(inputpath)
 
 impute_PSI_filter=read.table(paste(splicetype,"_",counttype,"_impute_PSI_filter_KNN.txt",sep=""),sep="\t",header=T)
@@ -19,7 +19,7 @@ logitPSI=as.data.frame(logitPSI)
 impute_PSI_filter=logitPSI
 ###logit transformation###
 
-outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/",counttype,sep="")
+outputpath="./04_tSNE_on_PSI/example_output"
 command=paste("mkdir -p ",outputpath,sep="")
 system(command)
 setwd(outputpath)
