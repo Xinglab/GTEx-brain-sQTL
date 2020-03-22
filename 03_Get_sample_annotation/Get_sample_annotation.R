@@ -1,13 +1,14 @@
-outputfolder="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/2_get_phenotype_information/result"
+outputfolder="./03_Get_sample_annotation/example_output"
 
 #get SRR ID of all samples
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/1_get_matrix_from_rMATS/result/JC")
-data=read.table("A3SS_JC_IC_filter.txt",sep="\t",header=T)
+inputpath="./02_PSI_value_quantification/01_Get_PSI_from_rMATS_output/example_output"
+setwd(inputpath)
+data=read.table("SE_JC_IC_filter.txt",sep="\t",header=T)
 SRRlist=colnames(data)
 
 #read in annotation information
 #for age and gender
-annotationpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/GTEx_V7_document/V7_annotation"
+annotationpath="./03_Get_sample_annotation/example_input"
 annotationname="GTEx_v7_Annotations_SubjectPhenotypesDS.txt"          #phenotype information
 setwd(annotationpath)
 annotation=read.table(annotationname,sep="\t",header=T)

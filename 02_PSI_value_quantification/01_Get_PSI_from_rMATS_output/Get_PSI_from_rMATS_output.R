@@ -4,8 +4,8 @@ counttype="JC"       #JCEC (junction count + exon body count) or JC (junction co
 ##################
 #Input parameters#
 ##################
-inputpath="input/path/for/rMATS/output"     
-outputpath="output/path"
+inputpath="./02_PSI_value_quantification/01_Get_PSI_from_rMATS_output/example_input"     #input path for rMATS output
+outputpath="/02_PSI_value_quantification/01_Get_PSI_from_rMATS_output/example_output"
 
 inputcount=paste(counttype,".raw.input.",splicetype,".txt",sep="")
 inputexon=paste("fromGTF.",splicetype,".txt",sep="")
