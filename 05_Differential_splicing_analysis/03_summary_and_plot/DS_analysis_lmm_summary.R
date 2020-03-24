@@ -2,11 +2,12 @@
 
 splicetypelist=c("SE","A3SS","A5SS")
 counttype="JC"
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/7.3_DS_analysis_oneforalll_linear_mixed_model/lmm_output_no_interaction_no_warning_one_full_model_original_age_imputed_psi_no_weight_JC_oneforall_original_region_with_SVA/result"
+rootinput="./05_Differential_splicing_analysis/02_linear_mixed_model"
 fdrcutoff=0.05
+outputpath="./05_Differential_splicing_analysis/03_summary_and_plot/example_output"
 
 #read in phenotype information
-phenotypepath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/2_get_phenotype_information/result"
+phenotypepath="./03_Get_sample_annotation/example_output"
 setwd(phenotypepath)
 oriage=read.table("agetable_brain.txt",sep="\t",header=T)           
 gender=read.table("gendertable_brain.txt",sep="\t",header=T)          #current gender is numeric data, not categorical data. It needs to be changed to categorical data for further model fitting
@@ -60,7 +61,7 @@ for (splicetype in splicetypelist){
   fdrDS.AGE=which(fdrmatrix[,"pAGE"]<fdrcutoff) 
   fdrDS.GENDER=which(fdrmatrix[,"pGENDER"]<fdrcutoff) 
   
-  setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/7.4_DS_analysis_oneforall_result_summary_and_plot/result/fdr=0.05")
+  setwd(outputpath)
   if (length(fdrDS.BR)>0){
     outputtable=cbind(eventsinfo[fdrDS.BR,],pvmatrix[fdrDS.BR,"pBR"],fdrmatrix[fdrDS.BR,"pBR"])
     colnames(outputtable)=c("Exon ID","Gene Symbol","Chr","Strand",

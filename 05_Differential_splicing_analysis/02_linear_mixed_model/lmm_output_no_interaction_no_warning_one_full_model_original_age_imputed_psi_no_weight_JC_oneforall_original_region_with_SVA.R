@@ -1,4 +1,3 @@
-code_folder="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/7.3_DS_analysis_oneforalll_linear_mixed_model/lmm_output_no_interaction_no_warning_one_full_model_original_age_imputed_psi_no_weight_JC_oneforall_original_region_with_SVA"
 splicetype="SE"      #type of alternative splicing, e.g., SE, A3SS, A5SS, MXE, IR
 counttype="JC"       #JCEC (junction count + exon body count) or JC (junction count only)
 
@@ -9,13 +8,13 @@ library(boot)
 library(lme4)  
 library(ResourceSelection)
 
-inputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/4.2_data_inspection_imputation/result/",counttype,sep="")
+inputpath="./02_PSI_value_quantification/02_Imputation/example_output"
 setwd(inputpath)
 impute_PSI_filter=read.table(paste(splicetype,"_",counttype,"_impute_PSI_filter_KNN.txt",sep=""),sep="\t",header=T)
 psi=impute_PSI_filter
 
 #read in annotation information
-phenotypepath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/2_get_phenotype_information/result"
+phenotypepath="./03_Get_sample_annotation/example_output"
 setwd(phenotypepath)
 age=read.table("agetable_brain.txt",sep="\t",header=T)           
 gender=read.table("gendertable_brain.txt",sep="\t",header=T)          #current gender is numeric data, not categorical data. It needs to be changed to categorical data for further model fitting
@@ -23,7 +22,7 @@ brainregion=read.table("brain_region_table_brain.txt",sep="\t",header=T)
 sampleID_SRRID=read.table("sampleID_SRRID_brain.txt",sep="\t",header=T)
 
 ###read in SVA result###
-inputSVApath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/7.1_DS_analysis_SVA/result/",counttype,sep="")
+inputSVApath="./05_Differential_splicing_analysis/01_SVA/example_output"
 inputSVAname=paste(splicetype,"_",counttype,"_SVA_brain_gender_age_surrogate_variable.txt",sep="")
 setwd(inputSVApath)
 sva=try(suppressMessages(read.table(inputSVAname,sep="\t")),silent=TRUE)      #if there is no SVA result, it will generate a warning. Don't worry about that. It won't impact the result. 
@@ -153,7 +152,7 @@ for (exon in 1:dim(psi)[1]){
 ########
 #output#
 ########
-outputpath=paste(code_folder,"result",splicetype,counttype,sep="/")
+outputpath="./05_Differential_splicing_analysis/02_linear_mixed_model"
 label=strsplit(outputpath,split="/")[[1]][12]
 command=paste("mkdir -p ",outputpath,sep="")
 system(command)

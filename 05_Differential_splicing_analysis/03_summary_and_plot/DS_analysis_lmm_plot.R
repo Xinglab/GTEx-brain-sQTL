@@ -7,8 +7,8 @@ library(reshape)
 
 splicetypelist=c("SE","A5SS","A3SS")
 counttype="JC"
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/7.3_DS_analysis_oneforalll_linear_mixed_model/lmm_output_no_interaction_no_warning_one_full_model_original_age_imputed_psi_no_weight_JC_oneforall_original_region_with_SVA/result"
-rootoutput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/7.4_DS_analysis_oneforall_result_summary_and_plot/result"
+rootinput="./05_Differential_splicing_analysis/02_linear_mixed_model"
+rootoutput="./05_Differential_splicing_analysis/03_summary_and_plot/example_output"
 fdrcutoff=0.05
 library(NMF)
 library(RColorBrewer)

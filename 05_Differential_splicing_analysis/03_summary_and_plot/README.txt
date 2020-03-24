@@ -1,0 +1,1 @@
+Run DS_analysis_lmm_summary.R first to summarize the result from the linear mixed models. Then run DS_analysis_lmm_plot.R to generate plot of the result. 
