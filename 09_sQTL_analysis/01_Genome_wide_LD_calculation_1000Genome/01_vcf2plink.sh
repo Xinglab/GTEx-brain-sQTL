@@ -12,10 +12,12 @@
 
 #The purpose of this code is to change the file format from .vcf to .tped and .tfam for downstream calculation
 
-
+input_file="1000_genome_genotype_by_chromosome.vcf.gz"
+input_path="/path/to/1000/genome/genotype/data"
+output_path="/output/path"
 #export chrom="$SGE_TASK_ID"
 export chrom="$2"
-vcftools --gzvcf ALL.chr"$chrom".phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz --plink-tped --out plink_allsnps/$1.plink."$chrom"  --keep /u/nobackup/yxing/NOBACKUP/sstein93/geuvadis/$1.individuals.txt
+vcftools --gzvcf $input_file --plink-tped --out $output_path/$1.plink."$chrom"  --keep $input_path/$1.individuals.txt
 
 #Input parameter:
 #$1: Population (CEU/FIN/GBR/TSI/TRI)
