@@ -1,12 +1,6 @@
-#variable1:full path + file name of association results of all exons
-#e.g. Glimmps_each_exon_cis_Brain-Cortex/*
-#variable2: full path + file name of all exon information
-#e.g. /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/exon_info.fromGTF.SE.txt
-
 #The purpose of this code is to select (significant) top SNP (with smallest p value. 
 #if there are ties, we choose the one that is closest to the splice site)
 # for each SE and output sQTL list
-
 
 args <- commandArgs(TRUE)
 FDRcutoff=0.1

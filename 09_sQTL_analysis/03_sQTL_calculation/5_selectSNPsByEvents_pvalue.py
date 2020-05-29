@@ -1,15 +1,7 @@
 import sys, numpy, glob
-#variable1:full path + file name of association results of all exons
-#e.g. Glimmps_each_exon_cis_Brain-Cortex/*
-#variable2: full path + file name of all exon information
-#e.g. /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/exon_info.fromGTF.SE.txt
-
 #The purpose of this code is to select (significant) top SNP (with smallest p value. 
 #if there are ties, we choose the one that is closest to the splice site)
 # for each SE and output sQTL list
-
-#example input:
-#sys.argv=['nothing','Glimmps_each_exon_cis_Brain-FrontalCortexBA9/*','/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE/exon_info.fromGTF.SE.txt'] 
 
 fin_list= glob.glob(sys.argv[1])
 

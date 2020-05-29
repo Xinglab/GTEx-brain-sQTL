@@ -7,16 +7,16 @@ PSItype="logit"      #logit (logit transformed PSI value) or original (original 
 #read in PSI table#
 ###################
 if (PSItype=="original"){   
-  inputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/1_get_matrix_from_rMATS/result/",counttype,sep="")  
+  inputpath="/input/path/for/original/PSI/value"
   inputname=paste(splicetype,"_",counttype,"_PSI_filter.txt",sep="")
 }
 if (PSItype=="logit"){     #logit PSI with correction
-  inputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/5_correction_for_technical_confounders/result/",counttype,sep="")
+  inputpath="/input/path/for/logit/transformed/PSI/value"
   inputname=paste(splicetype,"_",counttype,"_logit_corrected_PSI.txt",sep="")
 }
-exoninfopath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/brain_rMATS_post"
+exoninfopath="/path/to/rMATS/post/step/output"
 exoninfoname=paste("fromGTF.",splicetype,".txt",sep="")
-inputbrainpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/2_get_phenotype_information/result"
+inputbrainpath="./03_Get_sample_annotation/example_output"
 inputbrainname="brain_region_table_brain.txt"
 
 
@@ -49,7 +49,7 @@ BRlist=unique(as.character(as.matrix(oribrainregion)))
 #################
 #generate output#
 #################
-outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/",PSItype,"/",counttype,"/",splicetype,sep="")
+outputpath="/output/path"
 command=paste("mkdir -p ",outputpath,sep="")
 system(command)
 setwd(outputpath)

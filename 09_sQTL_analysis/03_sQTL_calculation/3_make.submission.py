@@ -1,30 +1,5 @@
 import sys, os
-#variable1: full path + file name of the exon information file
-#e.g. /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/exon_info.fromGTF.SE.txt 
-#variable2: full path + file name of the total read count file
-#e.g. /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/Brain-Hypothalamus/GTEx_brain_totalRC.txt 
-#variable3: full path + file name of the inclusion count file
-#e.g. /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/Brain-Hypothalamus/GTEx_brain_IC.txt 
-#variable4: output path suffix, i.e., brain region
-#e.g. Brain-AnteriorcingulatecortexBA24 
-#variable5: genotype folder
-#e.g. /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/test_run/Brain-AnteriorcingulatecortexBA24
-
 #the purpose of this code is to devide exons into batches and generate the shell script for each batch (this is under each permutation/original run and also each chromosome in each permutation/original run)
-
-
-#example input:
-#sys.argv=['nothing',
-#'/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE/exon_info.fromGTF.SE.txt',
-#'/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE/Brain-Caudatebasalganglia/GTEx_brain_totalRC.txt',
-#'/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE/Brain-Caudatebasalganglia/GTEx_brain_IC.txt',
-#'Brain-Caudatebasalganglia',
-#'/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC/SE/Brain-Caudatebasalganglia',
-#'Genotype_V7_plink_maf0.05.map',
-#'/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/scripts',
-#'logit',
-#'/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC/SE']
-
 
 batch=500       #500 exons a time
 

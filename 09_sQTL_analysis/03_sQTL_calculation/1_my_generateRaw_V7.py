@@ -1,13 +1,4 @@
 import sys,numpy,os
-# variable1: full path + file name of SRR ID
-# e.g. /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/Brain-AnteriorcingulatecortexBA24/SRR_ID.txt
-# variable2: full path + file name of genotype information in .map format
-# e.g. u/scratch2/scratch2/p/panyang/sQTL/Genotype_450_maf0.01.map
-# variable3: full path + file name of vcf file
-# e.g. /u/scratch2/scratch2/p/panyang/GTEx_genotype/GTEx_Analysis_20150112_OMNI_2.5M_5M_450Indiv_chr1to22_genot_imput_info04_maf01_HWEp1E6_ConstrVarIDs.vcf
-# variable4: the name of the current brain region
-# e.g. Brain-AnteriorcingulatecortexBA24
-
 #What the code is doing:
 #1. load all the sample information + count the number of donors + pair the SRR ID with donor ID
 #2. load the samples in the current brain region
@@ -15,14 +6,6 @@ import sys,numpy,os
 #4. parse the vcf file. This is the key purpose of this code. The idea is that the vcf file contains information for all samples and all SNPs. 
 #But we are just running our analysis in each brain region separately. So we don't want to load all the information every time. 
 #So we just want to get the genotype (SNPs after filter) of samples in the current brain region (and also in the vcf file because some samples may not have genotype information)
-
-#example input (V7 version)
-#sys.argv=['nothing',
-#'/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE/Brain-Caudatebasalganglia/SRR_ID.txt',
-#'/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/data/raw_data/files/genotype/V7_whole_exon_sequencing/Genotype_V7_plink_maf0.05.map',
-#'/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/data/raw_data/files/genotype/V7_whole_exon_sequencing/GTEx_Analysis_2016-01-15_v7_WholeGenomeSeq_635Ind_PASS_AB02_GQ20_HETX_MISS15_PLINKQC_maf_0.01.vcf',
-#'Brain-Caudatebasalganglia',
-#'/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/document/V7_annotation/gtex_v7_brain.txt']
 
 
 def loadSampleDict(fin):     #this function pairs SRR ID with donor ID and count the number of donors in the SRR run table

@@ -1,10 +1,4 @@
-#variable1: full path + file name of plink output
-#e.g. /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/sQTL_run/Brain-Cortex_copy/selected_sQTL_LD_GWAS/sig_SNPS_gwas.ld
-
 #The purpose of this code is to annotate all the SNPs that are in high LD with the sQTLs we identified (only SNPs annotated in GWAS catalog AND in high LD with sQTLs are outputted)
-
-#example input:
-#sys.argv=['nothing','/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/sQTL_run/Brain-Cortex_copy/selected_sQTL_LD_GWAS/sig_SNPS_gwas.ld']
 
 ## inputs gwas catalog and plink ld output 
 import sys,os,re
