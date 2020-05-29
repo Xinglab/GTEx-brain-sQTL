@@ -2,12 +2,11 @@
 #For all the sQTLs we identified, we focus on the sQTLs with GWAS association
 #for the associated GWAS traits, we download the summary statistics of those GWAS studies
 
-######################################################Download GWAS summary statistics##################################################
 #############################
 #Download summary statistics#
 #############################
-inputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/0_search_and_download_summary_statistics"
-rootoutputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/GWAS_summary_statistics"
+inputpath="/path/to/14_Colocalization/0_search_and_download_summary_statistics"
+rootoutputpath="/path/to/14_Colocalization/GWAS_summary_statistics"
 setwd(inputpath)
 GWAS_SS=read.table("sQTL_GWAS_summary_statistics_SE_logit_JC_pvalue.txt",sep="\t",header=T)
 
@@ -48,10 +47,7 @@ for (i in 1:dim(gwasftp)[1]){
         #move the data to the output folder
         command=paste("mv",paste(outputpath,strsplit(ftplink,split="ftp://")[[1]][2],"*",sep="/"),outputpath)
         system(command)
-        #the reason that we need to do this is because in a wget command, the link will also be interpreted as a path
-        #for example, the downloaded file will be stored in outputpath/ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/LockeAE_25673413_GCST002783/
-        #rather than just outputpath
-        
+
         #remove the empty folder
         system("rm -r ftp.ebi.ac.uk")
       }

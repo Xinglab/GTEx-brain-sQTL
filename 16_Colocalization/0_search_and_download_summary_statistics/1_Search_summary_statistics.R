@@ -3,7 +3,7 @@
 #for the associated GWAS traits, we download the summary statistics of those GWAS studies
 
 ######################################################Search and collect GWAS summary statistics##################################################
-outputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/0_search_and_download_summary_statistics"
+outputpath="/path/to/14_Colocalization/0_search_and_download_summary_statistics"
 #########################
 #read in the sQTL result#
 #########################
@@ -11,7 +11,7 @@ splicetype="SE"
 PSItype="logit"
 counttype="JC"
 type="pvalue"
-rootinput="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary"
+rootinput="/path/to/summary"
 
 setwd(paste(rootinput,PSItype,counttype,splicetype,sep="/"))
 sqtl=read.table(paste("sQTL_summary_all_brainregion_",PSItype,"_",counttype,"_",splicetype,"_",type,"_sorted.txt",sep=""),sep="\t",header=T,quote="")
@@ -19,7 +19,7 @@ sqtl=read.table(paste("sQTL_summary_all_brainregion_",PSItype,"_",counttype,"_",
 ################################
 #read in the GWAS catalog table#
 ################################
-GWASdb="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/GWAS_databases/gwas_catalog_v1.0.1-associations_e89_r2017-07-31.tsv"
+GWASdb="/path/to/GWAS_catalog/files/gwas_catalog_v1.0.1-associations_e89_r2017-07-31.tsv"
 GWAS=read.table(GWASdb,sep="\t",header=T,fill=TRUE,check.names=F,quote="",comment.char="")
 
 disease_key_word=toupper(c("Alzheimer","Amyotrophic lateral sclerosis","Parkinson","frontotemporal dementia","Huntington",
@@ -30,7 +30,7 @@ disease_key_word=toupper(c("Alzheimer","Amyotrophic lateral sclerosis","Parkinso
 #read in the GWAS catalog summary statistics table#
 ###################################################
 #this table contains all the GWAS studies with summary statistics on GWAS catalog
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/GWAS_databases/Summary_statistics")
+setwd("/path/to/GWAS_catalog/summary/statistics/table")
 gwasstudy=read.csv("GWAS_catalog_summary_statistics_study_table.csv",header=T)
 gwaslink=read.csv("GWAS_catalog_summary_statistics_FTP_link.csv",header=T)
 

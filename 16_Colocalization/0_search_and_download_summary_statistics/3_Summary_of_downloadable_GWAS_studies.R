@@ -1,16 +1,12 @@
-#Purpose of this code:
-#For all the 36 GWAS studies with downloadable summary statistics, we collect their information from GWAS catalog
-#we also annotate the 36 GWAS studies to show if they have harmonized summary statistics and if they have sample size information in their summary statistics
-
-outputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/0_search_and_download_summary_statistics"
-SSfolder="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/GWAS_summary_statistics"
+outputpath="/path/to/14_Colocalization/0_search_and_download_summary_statistics"
+SSfolder="/path/to/14_Colocalization/GWAS_summary_statistics"
 
 #read in the GWAS catalog table#
-GWASdb="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/GWAS_databases/gwas_catalog_v1.0.1-associations_e89_r2017-07-31.tsv"
+GWASdb="/path/to/GWAS_catalog/files/gwas_catalog_v1.0.1-associations_e89_r2017-07-31.tsv"
 GWAS=read.table(GWASdb,sep="\t",header=T,fill=TRUE,check.names=F,quote="",comment.char="")
 
 #read in the list of downloadable summary statistics
-inputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/0_search_and_download_summary_statistics"
+inputpath="/path/to/14_Colocalization/0_search_and_download_summary_statistics"
 setwd(inputpath)
 gwas.ss=read.table("sQTL_GWAS_summary_statistics_downloadable_SE_logit_JC_pvalue.txt",sep="\t",header=T)
 

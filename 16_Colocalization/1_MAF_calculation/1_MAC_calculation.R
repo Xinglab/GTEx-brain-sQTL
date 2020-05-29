@@ -1,17 +1,10 @@
-#Purpose of this code:
-#for the sQTL exon we want to do colocalization test on, we want to calculate the MAF of all the SNPs tested in the sQTL calculation of this exon
-#So this code will submit each sQTL exon-brain region combination as a job, for each job, we calculate the MAF and other information
-
-###############################################################get the exon-brain region combination####################################################################################
-
 job <- as.numeric(Sys.getenv("SGE_TASK_ID"))
 print(paste("job ID:",job))
 
-#flashscratch version (when I run the analysis, the nobackup/yxing folder is under migration so this part of the analysis was run under the scratch folder)
-inputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/0_search_and_download_summary_statistics"
-rootoutputpath="/u/flashscratch/y/yidazhan/GTEx_V7_analysis/1_MAF_calculation/result"
-exoninfopath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE"
-codefolder="/u/flashscratch/y/yidazhan/GTEx_V7_analysis/1_MAF_calculation"
+inputpath="/path/to/14_Colocalization/0_search_and_download_summary_statistics"
+rootoutputpath="/path/to/14_Colocalization/1_MAF_calculation/result"
+exoninfopath="/path/to/input_splicing/logit/JC/SE"
+codefolder="/path/to/14_Colocalization/1_MAF_calculation"
 
 setwd(inputpath)
 GWAS_SS=read.table("sQTL_GWAS_summary_statistics_SE_logit_JC_pvalue.txt",sep="\t",header=T)
@@ -96,27 +89,17 @@ exonbrpath=paste(exonpath,currentBR,sep="/")
 command=paste("mkdir -p",exonbrpath)
 system(command)
 
-###############################################################start the calculation for each combination####################################################################################
 
 brainregion=currentBR
 testedexon=exonfullID
-#brainregion="Brain-Cerebellum"
-#testedexon="189436|ENSG00000186868.15_3|MAPT|chr17|+|44051750|44051837|44049224|44049311|44055740|44055806"
 
-#sampleinputroot="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE"
-#sQTLruninputroot="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC/SE"
-#rootsqtl="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run"
-#genoplinkprefix="Genotype_V7_plink_maf0.05"
-#rootoutput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/1_MAF_calculation"
-#genotype="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/data/raw_data/files/genotype/V7_whole_exon_sequencing/GTEx_Analysis_2016-01-15_v7_WGS_652ind_VarID_Lookup_Table.txt"
+sampleinputroot="/path/to/input_splicing/logit/JC/SE"
+sQTLruninputroot="/path/to/sQTL_run/logit/JC/SE"
+rootsqtl="/path/to/sQTL_run"
+genoplinkprefix="genotype_file_name_prefix"
+rootoutput="/path/to/14_Colocalization/1_MAF_calculation"
+genotype="/path/to/genotype/data/GTEx_Analysis_2016-01-15_v7_WGS_652ind_VarID_Lookup_Table.txt"
 
-#flashscratch version
-sampleinputroot="/u/project/yxing-read-only/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE"
-sQTLruninputroot="/u/project/yxing-read-only/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC/SE"
-rootsqtl="/u/project/yxing-read-only/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run"
-genoplinkprefix="Genotype_V7_plink_maf0.05"
-rootoutput="/u/flashscratch/y/yidazhan/GTEx_V7_analysis/1_MAF_calculation"
-genotype="/u/project/yxing-read-only/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/data/raw_data/files/genotype/V7_whole_exon_sequencing/GTEx_Analysis_2016-01-15_v7_WGS_652ind_VarID_Lookup_Table.txt"
 
 
 PSItype="logit"
@@ -218,8 +201,6 @@ rownames(MAF.SS)=rowname
 
 output=cbind(MAF.SS,sQTLresult,rsID)
 outputpath=paste(rootoutput,"/result/",gsub("\\|",",",testedexon),"/",brainregion,sep="")
-#command=paste("mkdir -p",outputpath)
-#system(command)
 
 setwd(outputpath)
 write.table(output,"Colocalization_input.txt",sep="\t")

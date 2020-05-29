@@ -2,17 +2,13 @@
 #for the sQTL exon we want to do colocalization test on, we get the input (combine sQTL and GWAS information) for colocalization analysis
 #So this code will submit each sQTL exon-brain region-gwas study combination as a job, for each job, we get the input
 
-#reference: https://cran.r-project.org/web/packages/coloc/vignettes/vignette.html
-
-###############################################################get the exon-brain region-gwas study combination####################################################################################
 job <- as.numeric(Sys.getenv("SGE_TASK_ID"))
 print(paste("job ID:",job))
 
-
-inputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/0_search_and_download_summary_statistics"
-rootoutputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/3_Colocalization_analysis/result"
-exoninfopath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE"
-GWASstudyinfopath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/0_search_and_download_summary_statistics"
+inputpath="/path/to/14_Colocalization/0_search_and_download_summary_statistics"
+rootoutputpath="/path/to/14_Colocalization/3_Colocalization_analysis/result"
+exoninfopath="/path/to/input_splicing/logit/JC/SE"
+GWASstudyinfopath="/path/to/14_Colocalization/0_search_and_download_summary_statistics"
 
 #read in the information of 36 GWAS studies with summary statistics
 setwd(GWASstudyinfopath)
@@ -100,8 +96,6 @@ for (i in 1:dim(gwasftp)[1]){                      #for each exon
 
 combinationlist=unique(combinationlist)        #there are duplications  
 
-
-###############################################################start the calculation for each combination####################################################################################
 currentcombination=strsplit(combinationlist[job],split="~")[[1]]
 
 testedexon=currentcombination[1]
@@ -110,7 +104,7 @@ GWASstats=currentcombination[3]
 
 library("coloc")
 
-rootinput="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/2_Colocalization_input/result"   ###change###
+rootinput="/path/to/14_Colocalization/2_Colocalization_input/result"   ###change###
 inputpath=paste(rootinput,gsub("\\|",",",testedexon),GWASstats,brainregion,sep="/")
 
 ###################
@@ -126,9 +120,6 @@ if ("no_harmonized_summary_statistics.txt" %in% files){        #if there is no h
 
 if ("colocalization_input.txt" %in% files){                    #if we have harmonized summary statistics
   colocinput_all=read.table("colocalization_input.txt",sep="\t",header=T)
-  #there cannot be any NA in GWAS.beta, GWAS.standard_error, GWAS.hm_beta, and GWAS.n
-  #for sQTL.MAF, sQTL.pvals.lm, GWAS.hm_effect_allele_frequency, and GWAS.p_value, it is ok to have NAs
-  #In addition, the GWAS.standard_error has to be greater than 0. There will be error if it equals to 0
 
   #############################
   #run colocalization analysis#
@@ -137,9 +128,7 @@ if ("colocalization_input.txt" %in% files){                    #if we have harmo
   rownames(output)=paste(gsub("\\|",",",testedexon),GWASstats,brainregion,sep="~")
   
   if ("GWAS.n" %in% colnames(colocinput_all)){     #if there is sample size information in the GWAS summary statistics (we need this for colocalization analysis)
-    #header information of all the available summary statistics files can be found here:
-    #/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/0_search_and_download_summary_statistics/5_check_header_of_download_files_log
-    
+
     #############################################################################################################################################
     #1. p value and MAF for sQTL dataset + beta and standard error for GWAS dataset (original beta from GWAS summary statistics) + MAF from sQTL#
     #############################################################################################################################################
@@ -337,33 +326,3 @@ if ("colocalization_input.txt" %in% files){                    #if we have harmo
 }
 
 
-###method 1###
-#we use p value and MAF for sQTL dataset
-#we use beta and standard deviation (calculated from standard error) for GWAS dataset
-#my.res <- coloc.abf(dataset1=list(pvalues=colocinput$sQTL.pvals.lm, N=max(colocinput[,"sQTL.Sample.size"]),type="quant"),
-#                    dataset2=list(beta=colocinput$GWAS.beta, varbeta=(colocinput$GWAS.se)^2, N=max(colocinput[,"GWAS.nCompleteSamples"]),type="quant"),
-#                    MAF=colocinput$sQTL.MAF)
-#output:
-#PP.H0.abf PP.H1.abf PP.H2.abf PP.H3.abf PP.H4.abf 
-#0.003150  0.889000  0.000219  0.061700  0.045800 
-#[1] "PP abf for shared variant: 4.58%"
-#Warning message:
-#  In sdY.est(d$varbeta, d$MAF, d$N) :
-#  estimating sdY from maf and varbeta, please directly supply sdY if known
-
-
-###method 2###
-#my.res <- coloc.abf(dataset1=list(pvalues=colocinput$sQTL.pvals.lm,N=max(colocinput[,"sQTL.Sample.size"]),type="quant"),
-#                    dataset2=list(pvalues=colocinput$GWAS.pval,N=max(colocinput[,"GWAS.nCompleteSamples"]),type="quant"),
-#                    MAF=colocinput$sQTL.MAF)
-#output:
-#PP.H0.abf PP.H1.abf PP.H2.abf PP.H3.abf PP.H4.abf 
-#0.003150  0.889000  0.000218  0.061600  0.045800 
-#[1] "PP abf for shared variant: 4.58%"
-
-
-#H0 : neither trait has a genetic association in the region
-#H1: only trait 1 has a genetic association in the region
-#H2: only trait 2 has a genetic association in the region
-#H3: both traits are associated, but with different causal variants
-#H4: both traits are associated and share a single causal variant

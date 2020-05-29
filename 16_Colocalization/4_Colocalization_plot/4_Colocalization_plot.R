@@ -1,12 +1,11 @@
 job <- as.numeric(Sys.getenv("SGE_TASK_ID"))
 print(paste("job ID:",job))
 
-
-gwascatalogfile="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/0_search_and_download_summary_statistics/sQTL_GWAS_summary_statistics_SE_logit_JC_pvalue.txt"
-colocresultinputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/3_Colocalization_analysis"     #colocalization analysis result
-rootcolocinputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/2_Colocalization_input/result"   #input of colocalization analysis
-rootoutputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/4_Colocalization_plot/result"
-locuszoom="/u/project/yxing/PROJECT/yidazhan/research/software/locuszoom/bin/locuszoom"
+gwascatalogfile="/path/to/14_Colocalization/0_search_and_download_summary_statistics/sQTL_GWAS_summary_statistics_SE_logit_JC_pvalue.txt"
+colocresultinputpath="/path/to/14_Colocalization/3_Colocalization_analysis"     #colocalization analysis result
+rootcolocinputpath="/path/to/14_Colocalization/2_Colocalization_input/result"   #input of colocalization analysis
+rootoutputpath="/path/to/14_Colocalization/4_Colocalization_plot/result"
+locuszoom="/path/to/locuszoom"
 
 #read in the colocalization result
 setwd(colocresultinputpath)
@@ -104,33 +103,5 @@ if (dim(siglist)[1]>0){
   }
 }
 
-
-
-
-##############################
-#code to add customized label#
-##############################
-#testlabel="sQTL.p.MAF_GWAS.original.p.MAF_sQTL.MAF"
-#i=11
-
-#label=matrix(,0,3)
-#colnames(label)=c("snp",	"string",	"color")
-##add sQTL SNP if it is within the range
-##sQTLrsID=rownames(input4plot.sqtl)[which(input4plot.sqtl[,"P-value"]==min(input4plot.sqtl[,"P-value"]))]
-#sQTLrsID=as.character(gwasinfo[which(gwasinfo[,"sQTL.significant.region"]=="Cortex"),"sQTL.rsID"])      #this sQTL SNP has the same p value with the default picked on (there are a couple of SNPs with the same smallest p value)
-#newrow=c(sQTLrsID,"sQTL","blue")
-#label=rbind(label,newrow)
-#setwd(outputpath)
-#write.table(label,"locuszoom_SNP_label.txt",sep="\t",quote=F,row.names=F)
-
-#command=paste(locuszoom,"--metal input4plot_sqtl.txt --denote-markers-file locuszoom_SNP_label.txt",
-#              "--pop EUR --build hg19 --source 1000G_March2012",
-#              "--chr",strsplit(chr,split="chr")[[1]][2],"--start",range(poslist)[1]-extend,"--end",range(poslist)[2]+extend,
-#              "--gwas-cat whole-cat_significant-only",
-#              "--plotonly",
-#              "--prefix sQTL",
-#              paste("signifLine=",-log10(10^-5),sep=""),
-#              "signifLineColor=blue")
-#system(command)
 
 

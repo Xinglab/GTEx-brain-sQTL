@@ -1,18 +1,10 @@
-#the purpose of this code is to summarize all the colocalization result
-#The difference between this code and the result in /u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/3_Colocalization_analysis is that:
-#For the colocalization calculation, we calculate that for each sQTL-GWAS pair in all 13 studies. 
-#But here, we want to summarize the result based on those pairs in sQTL significant regions instead of all 13 regions.
-
 ###############################
 #read in the full result first#
 ###############################
-colocpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/3_Colocalization_analysis"
+colocpath="/path/to/14_Colocalization/3_Colocalization_analysis"
 
 setwd(colocpath)
 result=read.table("colocalization_result_summary.txt",sep="\t")
-
-#rownames(result)=result[,1]
-#result=result[,-1]
 
 colnames(result)=c("sQTL.p.MAF_GWAS.original.beta.se_sQTL.MAF","sQTL.p.MAF_GWAS.harmonized.beta.se_sQTL.MAF","sQTL.p.MAF_GWAS.original.p.MAF_sQTL.MAF",
                    "sQTL.p.MAF_GWAS.original.beta.se_GWAS.MAF","sQTL.p.MAF_GWAS.harmonized.beta.se_GWAS.MAF","sQTL.p.MAF_GWAS.original.p.MAF_GWAS.MAF")
@@ -50,8 +42,8 @@ formalbrainregionlist=c("Amygdala",
                         "Spinal cord cervical c-1",
                         "Substantia nigra")
 
-inputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/0_search_and_download_summary_statistics"
-exoninfopath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE"
+inputpath="/path/to/14_Colocalization/0_search_and_download_summary_statistics"
+exoninfopath="/path/to/input_splicing/logit/JC/SE"
 
 setwd(inputpath)
 GWAS_SS=read.table("sQTL_GWAS_summary_statistics_SE_logit_JC_pvalue.txt",sep="\t",header=T)
@@ -128,7 +120,7 @@ for (job in 1:length(combinationlist)){
   brainregion=currentcombination[3]
   GWASstats=currentcombination[2]
   
-  rootinput="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/2_Colocalization_input/result"   
+  rootinput="/path/to/14_Colocalization/2_Colocalization_input/result"   
   inputpath=paste(rootinput,gsub("\\|",",",testedexon),GWASstats,brainregion,sep="/")
   
   ###################
@@ -148,16 +140,11 @@ for (job in 1:length(combinationlist)){
   }
 }
 
-totalrun     #number of runs when we don't require sample size information in summary statistics
-#[1] 124
-length(unique(outputfilelist))
-#124
-
 
 ###################################################################
 #select the result for sQTL-GWAS pairs in sQTL significant regions#
 ###################################################################
-outputpath="/u/flashscratch/y/yidazhan/GTEx_V7_analysis/colocalization_analysis_summary_based_on_sQTL_significant_brain_regions/result"
+outputpath="/path/to/coloc/analysis/result"
 result.sigregion=result[unique(outputfilelist),]
 
 #change the format of the result table
@@ -178,45 +165,4 @@ setwd(outputpath)
 write.table(result.sigregion,"colocalization_result_summary_based_on_sig_region.txt",sep="\t")
 
 
-########################################
-#check the number of significant result#
-########################################
-inputpath="/u/flashscratch/y/yidazhan/GTEx_V7_analysis/colocalization_analysis_summary_based_on_sQTL_significant_brain_regions/result"
-setwd(inputpath)
-result=read.table("colocalization_result_summary_based_on_sig_region.txt",sep="\t",header=T)
 
-for (i in 6:11){
-  for (j in c(0.75,0.8)){
-    print(paste(sum(result[,i]>=j,na.rm=T),"events with PP4 greater or equal to",j,"based on",colnames(result)[i]))
-  }
-}
-
-
-##################################################
-#not requiring_sample_size_in_summary_statistics:#
-##################################################
-[1] "56 events with PP4 greater or equal to 0.75 based on sQTL.p.MAF_GWAS.original.beta.se_sQTL.MAF"
-[1] "46 events with PP4 greater or equal to 0.8 based on sQTL.p.MAF_GWAS.original.beta.se_sQTL.MAF"
-
-[1] "56 events with PP4 greater or equal to 0.75 based on sQTL.p.MAF_GWAS.harmonized.beta.se_sQTL.MAF"
-[1] "46 events with PP4 greater or equal to 0.8 based on sQTL.p.MAF_GWAS.harmonized.beta.se_sQTL.MAF"
-
-[1] "77 events with PP4 greater or equal to 0.75 based on sQTL.p.MAF_GWAS.original.p.MAF_sQTL.MAF"
-[1] "63 events with PP4 greater or equal to 0.8 based on sQTL.p.MAF_GWAS.original.p.MAF_sQTL.MAF"
-
-[1] "17 events with PP4 greater or equal to 0.75 based on sQTL.p.MAF_GWAS.original.beta.se_GWAS.MAF"
-[1] "14 events with PP4 greater or equal to 0.8 based on sQTL.p.MAF_GWAS.original.beta.se_GWAS.MAF"
-
-[1] "17 events with PP4 greater or equal to 0.75 based on sQTL.p.MAF_GWAS.harmonized.beta.se_GWAS.MAF"
-[1] "14 events with PP4 greater or equal to 0.8 based on sQTL.p.MAF_GWAS.harmonized.beta.se_GWAS.MAF"
-
-[1] "26 events with PP4 greater or equal to 0.75 based on sQTL.p.MAF_GWAS.original.p.MAF_GWAS.MAF"
-[1] "22 events with PP4 greater or equal to 0.8 based on sQTL.p.MAF_GWAS.original.p.MAF_GWAS.MAF"
-
-
-#how many sQTL-GWAS pairs
-inputpath="/u/flashscratch/y/yidazhan/GTEx_V7_analysis/colocalization_analysis_summary_based_on_sQTL_significant_brain_regions/result"
-setwd(inputpath)
-result=read.table("colocalization_result_summary_based_on_sig_region.txt",sep="\t",header=T)
-
-length(unique(paste(result[,1],paste(result[,2],result[,3],result[,4],sep="_"),sep="~")))

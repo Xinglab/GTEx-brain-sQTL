@@ -2,14 +2,12 @@
 #for the sQTL exon we want to do colocalization test on, we get the input (combine sQTL and GWAS information) for colocalization analysis
 #So this code will submit each sQTL exon-brain region-gwas study combination as a job, for each job, we get the input
 
-###############################################################get the exon-brain region-gwas study combination####################################################################################
 job <- as.numeric(Sys.getenv("SGE_TASK_ID"))
 print(paste("job ID:",job))
 
-
-inputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/0_search_and_download_summary_statistics"
-rootoutputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/2_Colocalization_input/result"
-exoninfopath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE"
+inputpath="/path/to/14_Colocalization/0_search_and_download_summary_statistics"
+rootoutputpath="/path/to/14_Colocalization/2_Colocalization_input/result"
+exoninfopath="/path/to/input_splicing/logit/JC/SE"
 
 
 setwd(inputpath)
@@ -94,7 +92,6 @@ for (i in 1:dim(gwasftp)[1]){                      #for each exon
 combinationlist=unique(combinationlist)        #there are duplications  
       
  
-###############################################################start the calculation for each combination####################################################################################
 currentcombination=strsplit(combinationlist[job],split="~")[[1]]
 
 testedexon=currentcombination[1]
@@ -108,12 +105,12 @@ system(command)
 
 library("data.table")
 
-rootinput="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/1_MAF_calculation"             #input from sQTL analysis
+rootinput="/path/to/14_Colocalization/1_MAF_calculation"             #input from sQTL analysis
 inputpath=paste(rootinput,"/result","/",gsub("\\|",",",testedexon),"/",brainregion,sep="")
 
-rootgwassspath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/GWAS_summary_statistics"
+rootgwassspath="/path/to/14_Colocalization/GWAS_summary_statistics"
 
-rootoutput="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/14_Colocalization/2_Colocalization_input/result"
+rootoutput="/path/to/14_Colocalization/2_Colocalization_input/result"
 outputpath=paste(rootoutput,"/",gsub("\\|",",",testedexon),"/",GWASstats,"/",brainregion,sep="")
 
 #############################

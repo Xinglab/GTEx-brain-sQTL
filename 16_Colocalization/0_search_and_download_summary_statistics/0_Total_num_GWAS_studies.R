@@ -8,7 +8,7 @@ splicetype="SE"
 PSItype="logit"
 counttype="JC"
 type="pvalue"
-rootinput="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary"
+rootinput="/path/to/summary"
 
 setwd(paste(rootinput,PSItype,counttype,splicetype,sep="/"))
 sqtl=read.table(paste("sQTL_summary_all_brainregion_",PSItype,"_",counttype,"_",splicetype,"_",type,"_sorted.txt",sep=""),sep="\t",header=T,quote="")
@@ -16,7 +16,7 @@ sqtl=read.table(paste("sQTL_summary_all_brainregion_",PSItype,"_",counttype,"_",
 ################################
 #read in the GWAS catalog table#
 ################################
-GWASdb="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/GWAS_databases/gwas_catalog_v1.0.1-associations_e89_r2017-07-31.tsv"
+GWASdb="/path/to/GWAS_catalog/files/gwas_catalog_v1.0.1-associations_e89_r2017-07-31.tsv"
 GWAS=read.table(GWASdb,sep="\t",header=T,fill=TRUE,check.names=F,quote="",comment.char="")
 
 disease_key_word=toupper(c("Alzheimer","Amyotrophic lateral sclerosis","Parkinson","frontotemporal dementia","Huntington",
