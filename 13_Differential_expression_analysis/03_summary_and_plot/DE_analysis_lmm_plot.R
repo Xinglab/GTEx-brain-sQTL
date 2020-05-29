@@ -1,8 +1,8 @@
 expressiontype="allgene"
 
 label="lmm_output_no_interaction_no_warning_one_full_model_original_age_oneforall_original_region_without_SVA"
-rootinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/8.4_DE_analysis_oneforall_linear_mixed_model/",label,"/result/",expressiontype,sep="")
-rootoutput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/8.5_DE_analysis_oneforall_result_summary_and_plot/result/lmm_output_no_interaction_no_warning_one_full_model_original_age_oneforall_original_region_without_SVA"
+rootinput="/output/path/of/lmm/result"
+rootoutput="/output/path"
 fdrcutoff=0.05
 library(NMF)
 library(RColorBrewer)

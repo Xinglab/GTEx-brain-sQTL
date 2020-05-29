@@ -6,7 +6,7 @@ library(boot)
 #########################
 #read in gene expression#
 #########################
-inputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/V7_expression_TPM"
+inputpath="/input/to/GTEx/processed/gene/expression/data"
 setwd(inputpath)
 if (expressiontype=="allgene"){
   expr=read.table("GTEx_Analysis_2016-01-15_v7_RNASeQCv1.1.8_gene_tpm_brain_normalized.txt",header=T,sep="\t",check.names=F)
@@ -25,7 +25,7 @@ print(dim(expr))
 ####################
 #read in annotation#
 ####################
-phenotypepath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/2_get_phenotype_information/result"
+phenotypepath="./03_Get_sample_annotation/example_output"
 setwd(phenotypepath)
 oriage=read.table("agetable_brain.txt",sep="\t",header=T)           
 origender=read.table("gendertable_brain.txt",sep="\t",header=T)          #current gender is numeric data, not categorical data. It needs to be changed to categorical data for further model fitting
@@ -51,7 +51,7 @@ edata=edata[which(apply(t(edata), 2, var)!=0),]   #remove genes with 0 variance
 #log transformation of TPM
 edata=log2(edata+10^-10)
 
-outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/8.2_gene_expression_SVA/result/",expressiontype,sep="")
+outputpath="/output/path"
 command=paste("mkdir -p ",outputpath,sep="")
 system(command)
 setwd(outputpath)

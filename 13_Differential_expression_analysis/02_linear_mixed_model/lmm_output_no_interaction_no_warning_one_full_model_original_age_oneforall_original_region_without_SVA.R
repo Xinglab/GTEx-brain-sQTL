@@ -1,4 +1,3 @@
-code_folder="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/8.4_DE_analysis_oneforall_linear_mixed_model/lmm_output_no_interaction_no_warning_one_full_model_original_age_oneforall_original_region_without_SVA"
 expressiontype="allgene"
 
 library(boot)
@@ -7,7 +6,7 @@ library(ResourceSelection)
 #########################
 #read in gene expression#
 #########################
-inputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/V7_expression_TPM"
+inputpath="/input/to/GTEx/processed/gene/expression/data"
 setwd(inputpath)
 if (expressiontype=="allgene"){
   expr=read.table("GTEx_Analysis_2016-01-15_v7_RNASeQCv1.1.8_gene_tpm_brain_normalized.txt",header=T,sep="\t",check.names=F)
@@ -26,7 +25,7 @@ rownames(IDconversion)=IDconversion[,"sampleID"]
 ####################
 #read in annotation#
 ####################
-phenotypepath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/2_get_phenotype_information/result"
+phenotypepath="./03_Get_sample_annotation/example_output"
 setwd(phenotypepath)
 orisampleID_SRRID=read.table("sampleID_SRRID_brain.txt",sep="\t",header=T)
 oriage=read.table("agetable_brain.txt",sep="\t",header=T)           
@@ -127,7 +126,7 @@ for (gene in 1:dim(edata)[1]){
 ########
 #output#
 ########
-outputpath=paste(code_folder,"result",expressiontype,sep="/")
+outputpath="/output/path"
 label=strsplit(outputpath,split="/")[[1]][12]
 command=paste("mkdir -p ",outputpath,sep="")
 system(command)

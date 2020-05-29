@@ -3,13 +3,13 @@
 expressiontype="allgene"
 
 label="lmm_output_no_interaction_no_warning_one_full_model_original_age_oneforall_original_region_without_SVA"
-rootinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/8.4_DE_analysis_oneforall_linear_mixed_model/",label,"/result/",expressiontype,sep="")
+rootinput="/output/path/of/lmm/result"
 fdrcutoff=0.05
 
 ###################
 #read in phenotype#
 ###################
-inputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/V7_expression_TPM"
+inputpath="/input/to/GTEx/processed/gene/expression/data"
 setwd(inputpath)
 if (expressiontype=="allgene"){
   expr=read.table("GTEx_Analysis_2016-01-15_v7_RNASeQCv1.1.8_gene_tpm_brain_normalized.txt",header=T,sep="\t",check.names=F)
@@ -62,7 +62,7 @@ fdrDS.BR=which(fdrmatrix[,"pBR"]<fdrcutoff)    #events pass FDR cutoff
 fdrDS.AGE=which(fdrmatrix[,"pAGE"]<fdrcutoff) 
 fdrDS.GENDER=which(fdrmatrix[,"pGENDER"]<fdrcutoff) 
 
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/8.5_DE_analysis_oneforall_result_summary_and_plot/result/lmm_output_no_interaction_no_warning_one_full_model_original_age_oneforall_original_region_without_SVA/fdr=0.05")
+setwd("/output/path")
 if (length(fdrDS.BR)>0){
   outputtable=cbind(eventsinfo[fdrDS.BR,],pvmatrix[fdrDS.BR,"pBR"],fdrmatrix[fdrDS.BR,"pBR"])
   colnames(outputtable)=c("Gene ID","Gene Symbol",
