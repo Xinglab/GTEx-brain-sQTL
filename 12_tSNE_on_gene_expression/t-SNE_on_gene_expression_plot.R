@@ -36,7 +36,7 @@ theme_ydz <- theme(#plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
 ####################
 #read in annotation#
 ####################
-phenotypepath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/2_get_phenotype_information/result"
+phenotypepath="./03_Get_sample_annotation/example_output"
 setwd(phenotypepath)
 oriage=read.table("agetable_brain.txt",sep="\t",header=T)           
 origender=read.table("gendertable_brain.txt",sep="\t",header=T)          #current gender is numeric data, not categorical data. It needs to be changed to categorical data for further model fitting
@@ -63,20 +63,20 @@ rownames(oribatch)=c("collection site",
 #SMGEBTCHT: Type of genotype or expression batch
 
 #population information
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/gtex_v7_phenotype")
+setwd("/input/path/to/GTEx/phenotype/result")
 phenotypename="phs000424.v7.pht002742.v7.p2.c1.GTEx_Subject_Phenotypes.GRU.txt"
 phenotype=read.table(phenotypename,sep="\t",skip=10,header=T,fill=TRUE,quote="")
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/GTEx_V7_document/V7_annotation")
+setwd("/input/path/to/GTEx/brain/tissue/sample/annotation")
 annotation=read.csv("gtex_v7_brain.csv",header=T)
 
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/V7_expression_TPM")
+setwd("/input/to/GTEx/processed/gene/expression/data")
 IDconversion=read.table("SRRID_2_GTEXID.txt",sep="\t",header=T)
 rownames(IDconversion)=IDconversion[,"sampleID"]
 
 ######################
 #read in t-SNE result#
 ######################
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/8.3_gene_expression_t-SNE/result"
+rootinput="/input/path/to/gene/expression/tSNE/result"
 expressiontypelist=c("allgene","allRBP","allSF")
 for (expressiontype in expressiontypelist){
   inputpath=paste(rootinput,expressiontype,sep="/")
