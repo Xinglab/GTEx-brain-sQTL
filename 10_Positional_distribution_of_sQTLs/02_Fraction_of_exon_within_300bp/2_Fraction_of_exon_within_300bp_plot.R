@@ -1,8 +1,7 @@
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/scripts")
+setwd("/path/to/sQTL/scripts")
 brainregion=as.character(as.matrix(read.table("brainregionlist.txt",sep="\t")))
-#inputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/fraction_of_exon_within_300bp_modified/wrong"
-inputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/fraction_of_exon_within_300bp_modified"
-outputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/fraction_of_exon_within_300bp_modified"
+inputpath="/output/path/of/1_Fraction_of_exon_within_300bp"
+outputpath=outputpath
 
 
 splicetypelist=c("SE","A3SS","A5SS")

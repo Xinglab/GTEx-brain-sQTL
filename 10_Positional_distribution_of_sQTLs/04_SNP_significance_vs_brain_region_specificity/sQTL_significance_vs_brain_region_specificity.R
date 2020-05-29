@@ -30,10 +30,9 @@ typelist=c("pvalue","permutation")
 PSItype="logit"
 counttype="JC"
 
-#sQTLexoninputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.1_sQTL_disease_exon_annotation/1_disease_exon_summary/result"
-outputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/sQTL_significance_vs_brain_region_specificity"
-summaryinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary"
-sQTLinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run"
+outputpath="/output/path"
+summaryinput="/path/to/summary"
+sQTLinput="/path/to/sQTL_run"
 
 library(ggplot2)
 

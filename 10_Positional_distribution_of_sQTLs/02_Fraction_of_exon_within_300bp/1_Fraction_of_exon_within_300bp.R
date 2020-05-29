@@ -1,11 +1,11 @@
 args <- commandArgs(TRUE)
 br=as.character(args[1])      #brain region
 
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/scripts")
+setwd("/path/to/sQTL/scripts")
 brainregion=as.character(as.matrix(read.table("brainregionlist.txt",sep="\t")))
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC/"
-rootsplicinginput='/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/'
-outputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/fraction_of_exon_within_300bp_modified"
+rootinput="/path/to/sQTL_run/logit/JC/"
+rootsplicinginput='/path/to/input_splicing/logit/JC/'
+outputpath="/output/path"
 
 
 splicetypelist=c("SE","A3SS","A5SS")

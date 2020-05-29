@@ -30,9 +30,9 @@ typelist=c("pvalue","permutation")
 PSItype="logit"
 counttype="JC"
 
-outputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/SNP_to_SS_distance_vs_brain_region_specificity"
-summaryinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary"
-sQTLinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run"
+outputpath="/output/path"
+summaryinput="/path/to/summary"
+sQTLinput="/path/to/sQTL_run"
 
 library(ggplot2)
 library(reshape)
@@ -218,7 +218,7 @@ importance_order=c("dinucleotide", "SS", "exon", "<=300bp", ">300bp")
 
 for (splicetype in splicetypelist){
   for (type in typelist){
-    exoninfopath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing",
+    exoninfopath=paste("/path/to/input_splicing",
                        PSItype,counttype,splicetype,sep="/")
     setwd(exoninfopath)
     exoninfo=read.table(paste("exon_info.fromGTF.",splicetype,".txt",sep=""),sep="\t",header=T)
@@ -397,6 +397,8 @@ for (splicetype in splicetypelist){
     dev.off()
   }
 }
+
+
 
 
 

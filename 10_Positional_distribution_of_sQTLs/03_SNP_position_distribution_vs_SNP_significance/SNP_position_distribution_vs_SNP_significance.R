@@ -4,11 +4,11 @@ library(scales)
 splicetypelist=c("SE","A3SS","A5SS")                
 typelist=c("pvalue","permutation")
 
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/scripts")
+setwd("/path/to/sQTL/scripts")
 brainregion=as.character(as.matrix(read.table("brainregionlist.txt",sep="\t")))
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary/logit/JC/"
-rootsQTLinput='/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC'
-outputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/SNP_position_distribution"
+rootinput="/path/to/summary/logit/JC/"
+rootsQTLinput='/path/to/sQTL_run/logit/JC'
+outputpath="/output/path"
 
 findpos=function(x,exoninfo,searchrange,splicetype){
   strand=strsplit(exoninfo,split="\\|")[[1]][5]

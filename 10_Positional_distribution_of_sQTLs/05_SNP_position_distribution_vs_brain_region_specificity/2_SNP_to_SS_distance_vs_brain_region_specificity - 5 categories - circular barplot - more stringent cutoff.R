@@ -1,8 +1,3 @@
-#The purpose of this code is to show the same information in a circular bar plot instead of a CDF or violin plot
-#This code only has plot section. The data comes from the result of SNP_to_SS_distance_vs_brain_region_specificity - 5 categories.R
-#reference: https://www.r-graph-gallery.com/297-circular-barplot-with-groups/
-#The code needs to run using module load R/3.4.2
-
 brainregionlist=c("Brain-Amygdala",
                   "Brain-AnteriorcingulatecortexBA24",
                   "Brain-Caudatebasalganglia",
@@ -35,9 +30,9 @@ typelist=c("pvalue","permutation")
 PSItype="logit"
 counttype="JC"
 
-outputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/SNP_to_SS_distance_vs_brain_region_specificity"
-summaryinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary"
-sQTLinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run"
+outputpath="/output/path"
+summaryinput="/path/to/summary"
+sQTLinput="/path/to/sQTL_run"
 
 library(ggplot2)
 #library(reshape)
@@ -54,7 +49,7 @@ importance_order=c("dinucleotide", "SS", "exon", "<=300bp", ">300bp")
 
 for (splicetype in splicetypelist){
   for (type in typelist){
-    exoninfopath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing",
+    exoninfopath=paste("/path/to/input_splicing",
                        PSItype,counttype,splicetype,sep="/")
     setwd(exoninfopath)
     exoninfo=read.table(paste("exon_info.fromGTF.",splicetype,".txt",sep=""),sep="\t",header=T)
@@ -71,13 +66,30 @@ for (splicetype in splicetypelist){
     }
     sQTLexon=unique(sQTLexon)
     
-    setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/SNP_to_SS_distance_vs_brain_region_specificity/closest_significant_SNP_categorized_distance/5_categories")
+    #2. get a more stringent list of sQTL events
+    cutofftype="FDR10"                                                                 #######change########
+    if (cutofftype=="FDR1" || cutofftype=="FDR5"){
+      setwd(paste("/path/to/result/from/previous/step/",cutofftype,sep=""))
+    }
+    if (cutofftype=="FDR10"){
+      setwd("/path/to/result/from/previous/step/")
+    }
+    pvmatrix200k=read.table("pvmatrix_200kb.txt",sep="\t",header=T)
+    newsQTLexon=rep(NA,dim(pvmatrix200k)[1])
+    for (i in 1:length(newsQTLexon)){
+      newsQTLexon[i]=strsplit(rownames(pvmatrix200k)[i],split="~")[[1]][1]
+    }
+    
+    #3. get other information based on the new list of sQTL events
+    setwd("/path/to/result/from/previous/step/")
     result=read.table(paste(splicetype,"_",type,"_exonclass.txt",sep=""),sep="\t",header=T,check.names=F)
+    result=result[newsQTLexon,]
+    
     exonclass=as.matrix(result[,1:13])
     num.sig.region=as.numeric(as.matrix(result[,14]))
 
-    dis_2_SS=rep(NA,length(sQTLexon))      #the best category for each sQTL exon
-    for (e in 1:length(sQTLexon)){
+    dis_2_SS=rep(NA,length(newsQTLexon))      #the best category for each sQTL exon
+    for (e in 1:length(newsQTLexon)){
       dis_2_SS[e]=pick_category(exonclass[e,],importance_order)[1]
     }
     
@@ -134,7 +146,7 @@ for (splicetype in splicetypelist){
     
     # Make the plot
     setwd(outputpath)
-    pdf(paste(splicetype,type,"SNP_to_SS_distance_vs_brain_region_specificity_circular_bar_plot.pdf"),height=8,width=8)
+    pdf(paste(splicetype,type,"SNP_to_SS_distance_vs_brain_region_specificity_circular_bar_plot_",cutofftype,".pdf"),height=8,width=8)
     p = ggplot(df, aes(x=as.factor(id), y=num.events.prop, fill=distance)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
       
       geom_bar(aes(x=as.factor(id), y=num.events.prop, fill=distance), stat="identity", alpha=0.5) +

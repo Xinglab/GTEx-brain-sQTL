@@ -1,5 +1,3 @@
-#this is the same code for the cdf plot in SNP_to_SS_distance_vs_brain_region_specificity - 5 categories.R but with more stringent cutoffs on sQTL exons
-
 brainregionlist=c("Brain-Amygdala",
                   "Brain-AnteriorcingulatecortexBA24",
                   "Brain-Caudatebasalganglia",
@@ -32,9 +30,9 @@ typelist=c("pvalue","permutation")
 PSItype="logit"
 counttype="JC"
 
-outputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/SNP_to_SS_distance_vs_brain_region_specificity"
-summaryinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary"
-sQTLinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run"
+outputpath="/output/path"
+summaryinput="/path/to/summary"
+sQTLinput="/path/to/sQTL_run"
 
 library(ggplot2)
 library(reshape)
@@ -49,7 +47,7 @@ importance_order=c("dinucleotide", "SS", "exon", "<=300bp", ">300bp")
 
 for (splicetype in splicetypelist){
   for (type in typelist){
-    exoninfopath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing",
+    exoninfopath=paste("/path/to/input_splicing",
                        PSItype,counttype,splicetype,sep="/")
     setwd(exoninfopath)
     exoninfo=read.table(paste("exon_info.fromGTF.",splicetype,".txt",sep=""),sep="\t",header=T)
@@ -69,10 +67,10 @@ for (splicetype in splicetypelist){
     #2. get a more stringent list of sQTL events
     cutofftype="FDR10"                                                                 #######change########
     if (cutofftype=="FDR1" || cutofftype=="FDR5"){
-      setwd(paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot/Region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot_step_5_pick_SNP_and_collect_values_for_stacked_bar_plot_different_cutoffs/2_select_top_SNP/result/",cutofftype,sep=""))
+      setwd(paste("/path/to/result/from/previous/step/",cutofftype,sep=""))
     }
     if (cutofftype=="FDR10"){
-      setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot/Region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot_step_3_pick_SNP_and_collect_values_for_heatmap_more_stringent_version/single_job_run/result/200kb")
+      setwd("/path/to/result/from/previous/step/")
     }
     pvmatrix200k=read.table("pvmatrix_200kb.txt",sep="\t",header=T)
     newsQTLexon=rep(NA,dim(pvmatrix200k)[1])
@@ -81,7 +79,7 @@ for (splicetype in splicetypelist){
     }
     
     #3. get other information based on the new list of sQTL events
-    setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/SNP_to_SS_distance_vs_brain_region_specificity/closest_significant_SNP_categorized_distance/5_categories")
+    setwd("/path/to/result/from/previous/step/")
     result=read.table(paste(splicetype,"_",type,"_exonclass.txt",sep=""),sep="\t",header=T,check.names=F)
     result=result[newsQTLexon,]
     
