@@ -28,7 +28,7 @@ library(ggsci)
 require("ggrepel")
 
 #get all sQTL exons
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary/logit/JC"
+rootinput="/path/to/summary/logit/JC"
 brainregionlist=c("Brain-Amygdala",
                   "Brain-AnteriorcingulatecortexBA24",
                   "Brain-Caudatebasalganglia",
@@ -56,18 +56,18 @@ for (e in 1:length(sQTLexon)){
 }
 
 #read in the RBP information
-RBPdb="/u/nobackup/yxing/PROJECT/yidazhan/research/software/deepbind/db/db.tsv"
+RBPdb="/path/to/deepbind/db/db.tsv"
 RBPtable=read.table(RBPdb,sep="\t",header=T)
 subRBPtable=subset(RBPtable,RBPtable[,"Species"]=="Homo sapiens")
 subRBPtable=subset(subRBPtable,subRBPtable[,"Type"]=="RBP")
 
 #read in the joblist
-rootoutput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
+rootoutput=paste("/path/to/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
 setwd(rootoutput)
 uniquejoblist=read.table(paste(splicetype,"_",type,"_uniquejoblist.txt",sep=""),sep="\t")
 
 #generate output folder
-outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_result_plot_per_exon/",splicetype,"/",type,sep="")
+outputpath=paste("/path/to/DeepBind/deepbind_result_plot_per_exon/",splicetype,"/",type,sep="")
 command=paste("mkdir -p",outputpath)
 system(command)
 
@@ -76,7 +76,7 @@ exonjoblist=subset(uniquejoblist,uniquejoblist[,"Exon"] %in% shortID)
 
 #root folder of the current exon
 fullexonID=gsub("\\|",",",sQTLexon[which(shortIDlist %in% shortID)])
-rootexonresult=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_output/",
+rootexonresult=paste("/path/to/DeepBind/deepbind_output/",
                      splicetype,"/",type,"/",fullexonID,sep="")
 
 ###################################################################

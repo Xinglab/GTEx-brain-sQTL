@@ -19,7 +19,7 @@ library(circlize)
 library(lemon)
 
 #get all sQTL exons
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary/logit/JC"
+rootinput="/path/to/summary/logit/JC"
 brainregionlist=c("Brain-Amygdala",
                   "Brain-AnteriorcingulatecortexBA24",
                   "Brain-Caudatebasalganglia",
@@ -47,13 +47,13 @@ for (e in 1:length(sQTLexon)){
 }
 
 #read in the RBP information
-RBPdb="/u/nobackup/yxing/PROJECT/yidazhan/research/software/deepbind/db/db.tsv"
+RBPdb="/path/to/deepbind/db/db.tsv"
 RBPtable=read.table(RBPdb,sep="\t",header=T)
 subRBPtable=subset(RBPtable,RBPtable[,"Species"]=="Homo sapiens")
 subRBPtable=subset(subRBPtable,subRBPtable[,"Type"]=="RBP")
 
 #read in the joblist
-rootoutput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
+rootoutput=paste("/path/to/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
 setwd(rootoutput)
 uniquejoblist=read.table(paste(splicetype,"_",type,"_uniquejoblist.txt",sep=""),sep="\t")
 
@@ -64,13 +64,13 @@ snpid=as.character(uniquejoblist[job,"SNP"])
 rbpid=as.character(uniquejoblist[job,"RBP"])
 
 #generate output folder
-output=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_plot/",splicetype,"/",type,sep="")
+output=paste("/path/to/DeepBind/deepbind_plot/",splicetype,"/",type,sep="")
 outputpath=paste(output,paste(strsplit(sQTLexon[which(shortIDlist %in% shortID)],split="\\|")[[1]],collapse=","),paste(snpid,rbpid,sep="~"),sep="/")
 
 #############################
 #read in the deepbind result#
 #############################
-input=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_output/",splicetype,"/",type,sep="")
+input=paste("/path/to/DeepBind/deepbind_output/",splicetype,"/",type,sep="")
 inputpath=paste(input,paste(strsplit(sQTLexon[which(shortIDlist %in% shortID)],split="\\|")[[1]],collapse=","),paste(snpid,rbpid,sep="~"),sep="/")
 setwd(inputpath)
 

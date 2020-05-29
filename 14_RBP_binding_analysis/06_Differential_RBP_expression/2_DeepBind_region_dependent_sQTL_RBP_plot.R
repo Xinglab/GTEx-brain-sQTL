@@ -26,16 +26,16 @@ library(gaston)
 library(boot)
 
 '%!in%' <- function(x,y)!('%in%'(x,y))
-source("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/heatmap.3.R")
+source("/path/to/heatmap.3.R")
 
 vectorsplit=function(x,del,pos){
   return(strsplit(x,split=del)[[1]][pos])
 }
 
-outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_region_dependent_sQTL_RBP_plot_differential_expression_version",
+outputpath=paste("/path/to/DeepBind/deepbind_region_dependent_sQTL_RBP_plot_differential_expression_version",
                  splicetype,type,"duplicated_RBP_version",sep="/")
 
-sqtlrootinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC",
+sqtlrootinput=paste("/path/to/sQTL_run/logit/JC",
                     splicetype,sep="/")
 
 brainregionlist=c("Brain-Amygdala",
@@ -69,24 +69,24 @@ formalbrainregionlist=c("Amygdala",
 #######################
 #splicing and genotype#
 #######################
-summaryinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary/","logit","/",counttype,"/",splicetype,sep="")
-rootsqtl="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run"
-totalcountinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/1_get_matrix_from_rMATS/result/",counttype,sep="")
-GWASdbpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/GWAS_databases"
+summaryinput=paste("/path/to/summary/","logit","/",counttype,"/",splicetype,sep="")
+rootsqtl="/path/to/sQTL_run"
+totalcountinput="./01_Get_PSI_from_rMATS_output/example_output"
+GWASdbpath="/path/to/GWAS_catalog/files"
 GWASdbname="gwas_catalog_v1.0.1-associations_e89_r2017-07-31.tsv"
-genoplinkprefix="Genotype_V7_plink_maf0.05"
-LDpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/LD"
-sqtlrootinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC",
+genoplinkprefix="genotype_file_name_prefix"
+LDpath="/path/to/LD/result"
+sqtlrootinput=paste("/path/to/sQTL_run/logit/JC",
                     splicetype,sep="/")
-rmatspostpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/brain_rMATS_post"
+rmatspostpath="/path/to/rMATS/post/result"
 
 #read in the PSI value
 if (PSItype=="original"){   #original PSI value without any correction
-  psiinputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/1_get_matrix_from_rMATS/result/",counttype,sep="")  
+  psiinputpath="./01_Get_PSI_from_rMATS_output/example_output"
   inputPSI=paste(splicetype,"_",counttype,"_PSI_filter.txt",sep="")
 }
 if (PSItype=="logit"){     #logit PSI with correction (because we used corrected PSI for all the sQTL calculation, when we plot the result, we also use this but only transform it back to 0-1 scale)
-  psiinputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/5_correction_for_technical_confounders/result/",counttype,sep="")
+  psiinputpath="/path/to/corrected/PSI/value"
   inputPSI=paste(splicetype,"_",counttype,"_logit_corrected_PSI.txt",sep="")
 }
 inputtotalRC=paste(splicetype,"_",counttype,"_totalRC_filter.txt",sep="")
@@ -108,13 +108,12 @@ if (PSItype=="logit"){
 }
 
 #read in exon effective length table
-elinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/1_get_matrix_from_rMATS/result/",counttype,sep="")
+elinput="./01_Get_PSI_from_rMATS_output/example_output"
 setwd(elinput)
 effectlengthsubset=try(suppressMessages(read.table(paste("subset_",counttype,".raw.input.",splicetype,".txt",sep=""),sep="\t",header=T)),silent=TRUE) 
 if (!(inherits(effectlengthsubset,"try-error"))){       #if we have already have the sutset file (the original file is too big)
   effectlength=effectlengthsubset
 }else{      #if we don't, we need to generate that
-  #setwd("/u/nobackup/yxing/NOBACKUP/harryyan/gtex_sqtl/gtex_rMATS/post_tissue/brain_rMATS_post")
   setwd(rmatspostpath)
   effectlengthfull=fread(paste(counttype,".raw.input.",splicetype,".txt",sep=""),sep="\t",header=T)
   effectlengthfull=as.data.frame(effectlengthfull)
@@ -136,11 +135,11 @@ fromGTF=read.table(paste("fromGTF.",splicetype,".txt",sep=""),sep="\t",header=T)
 #gene expression#
 #################
 #read in the joblist
-joblistinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
+joblistinput=paste("/path/to/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
 setwd(joblistinput)
 uniquejoblist=read.table(paste(splicetype,"_",type,"_uniquejoblist.txt",sep=""),sep="\t")
 #read in the expression table
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/V7_expression_TPM")
+setwd("/input/to/GTEx/processed/gene/expression/data")
 normTPM=read.table("GTEx_Analysis_2016-01-15_v7_RNASeQCv1.1.8_gene_tpm_brain_normalized.txt",sep="\t",header=T,check.names=F)
 normTPM=as.matrix(normTPM)
 
@@ -180,7 +179,7 @@ edata=temp
 ##########################
 #brain region information#
 ##########################
-phenotypepath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/2_get_phenotype_information/result"
+phenotypepath="./03_Get_sample_annotation/example_output"
 setwd(phenotypepath)
 oribrainregion=read.table("brain_region_table_brain.txt",sep="\t",header=T)
 oribrainregion[which(oribrainregion=="Brain - Amygdala")]="Brain-Amygdala"
@@ -208,7 +207,7 @@ brainregion=oribrainregion[,as.character(colnames(edata))]
 
 #get the full exon information
 #get all sQTL exons
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary/logit/JC"
+rootinput="/path/to/summary/logit/JC"
 sQTLexon=c()
 inputpath=paste(rootinput,splicetype,sep="/")
 setwd(inputpath)
@@ -538,7 +537,7 @@ for (i in start:end){     #for each significant pair
     sampleID2=names(which(exongeno==2))
     samplesize=c(length(sampleID0),length(sampleID1),length(sampleID2))
     ###make sashimi plot###
-    rootbam="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/V7_all_bam_soft_link/"   #the folder containing all BAM files
+    rootbam="/path/to/BAM/files"   #the folder containing all BAM files
     
     exoninfo=getexon(exonfullinfo)
     #generate folders for the plot
@@ -605,7 +604,7 @@ for (i in start:end){     #for each significant pair
         #"\n",
         #"module load samtools",       
         #"\n",
-        "/u/nobackup/yxing/PROJECT/yidazhan/research/software/anaconda2/bin/rmats2sashimiplot",
+        "/path/to/rmats2sashimiplot",
         "--b1", b1,
         "--b2", b2,
         "-t", splicetype,

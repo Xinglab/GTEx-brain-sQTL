@@ -1,9 +1,9 @@
 splicetypelist=c("SE","A3SS","A5SS")
 typelist=c("pvalue","permutation")
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary/logit/JC"
-RBPdb="/u/nobackup/yxing/PROJECT/yidazhan/research/software/deepbind/db/db.tsv"
-rootsqtl="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC"
-rootsplicinginput='/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/'
+rootinput="/path/to/summary/logit/JC"
+RBPdb="/path/to/deepbind/db/db.tsv"
+rootsqtl="/path/to/sQTL_run/logit/JC"
+rootsplicinginput='/path/to/input_splicing/logit/JC/'
 
 #get all sQTL exons
 brainregionlist=c("Brain-Amygdala",
@@ -113,7 +113,7 @@ checkdis=function(exoninfo,exonID,SNPpos,splicetype){
 
 for (splicetype in splicetypelist){
   for (type in typelist){
-    rootoutput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
+    rootoutput=paste("/output/path/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
     command=paste("mkdir -p",rootoutput)
     system(command)
     
@@ -194,7 +194,7 @@ for (splicetype in splicetypelist){
 #output the exon ID conversion table (short ID to full ID)
 for (splicetype in splicetypelist){
   for (type in typelist){
-    rootoutput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
+    rootoutput=paste("/output/path/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
     command=paste("mkdir -p",rootoutput)
     system(command)
     

@@ -4,8 +4,8 @@ typelist=c("pvalue","permutation")
 for (splicetype in splicetypelist){
   for (type in typelist){
     #generate output folder
-    inputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_plot/",splicetype,"/",type,sep="")
-    outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_summary/",splicetype,"/",type,sep="")
+    inputpath=paste("/path/to/DeepBind/deepbind_plot/",splicetype,"/",type,sep="")
+    outputpath=paste("/path/to/DeepBind/deepbind_summary/",splicetype,"/",type,sep="")
     command=paste("mkdir -p",outputpath)
     system(command)
     
@@ -33,7 +33,7 @@ for (splicetype in splicetypelist){
     colnames(result)=c("single.SNP.value","average.SNP.value","single.SNP.rank","single.base.height","average.base.height","single.base.rank","outputpath")
     
     #read in the original job list
-    rootoutput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
+    rootoutput=paste("/path/to/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
     setwd(rootoutput)
     uniquejoblist=read.table(paste(splicetype,"_",type,"_uniquejoblist.txt",sep=""),sep="\t")
     

@@ -6,7 +6,7 @@
 splicetype="SE"      #type of alternative splicing, e.g., SE, A3SS, A5SS, MXE, IR
 type="pvalue"       #pvalue or permutation
 
-outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_individual_RBP_motif_scan",
+outputpath=paste("/path/to/DeepBind/deepbind_individual_RBP_motif_scan",
                  splicetype,type,sep="/")
 command=paste("mkdir -p",outputpath)
 system(command)
@@ -18,7 +18,7 @@ motiflength=list(6,4)
 names(motiflength)=c("RBFOX","NOVA")
 
 #get all sQTL exons
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary/logit/JC"
+rootinput="/path/to/summary/logit/JC"
 brainregionlist=c("Brain-Amygdala",
                   "Brain-AnteriorcingulatecortexBA24",
                   "Brain-Caudatebasalganglia",
@@ -48,7 +48,7 @@ exonIDconversion=cbind(shortIDlist,sQTLexon)
 rownames(exonIDconversion)=shortIDlist
 
 #read in the joblist
-joblistinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
+joblistinput=paste("/path/to/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
 setwd(joblistinput)
 uniquejoblist=read.table(paste(splicetype,"_",type,"_uniquejoblist.txt",sep=""),sep="\t")
 #get all the exon-SNP pairs
@@ -63,8 +63,8 @@ colnames(motifscan)=sort(as.vector(outer(names(RBP2scan), c("seq.wild","seq.mut"
 rownames(motifscan)=rownames(subuniquejoblist)
 
 #get genome sequence
-functionfile="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/motif_scan/rbp_map_functions.py"
-fasta="/u/nobackup/yxing/NOBACKUP/frankwoe/hg19/hg19.noRand.fa"
+functionfile="/path/to/rbp_map_functions.py"
+fasta="/path/to/hg19/FASTA/file"
 library(reticulate)
 source_python(functionfile)
 genome=read_genome(fasta)

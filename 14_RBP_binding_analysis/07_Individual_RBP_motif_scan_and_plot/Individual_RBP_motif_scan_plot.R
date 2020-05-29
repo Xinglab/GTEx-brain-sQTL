@@ -1,9 +1,3 @@
-#for every exon-SNP-NOVA1/2 trio:
-#0. generate sequence logo for sequence before and after mutation
-#1. glimmpse plot  + gene expression across all brain regions
-#2. box plot of differential gene expression analysis
-#3. sashimi plot
-
 splicetype="SE"      #type of alternative splicing, e.g., SE, A3SS, A5SS, MXE, IR
 type="pvalue"       #pvalue or permutation
 
@@ -20,10 +14,10 @@ library("data.table")
 library(gaston)
 library(boot)
 
-inputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_individual_RBP_motif_scan",
+inputpath=paste("/path/to/DeepBind/deepbind_individual_RBP_motif_scan",
                           splicetype,type,sep="/")
 
-outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_individual_RBP_motif_scan",
+outputpath=paste("/path/to/DeepBind/deepbind_individual_RBP_motif_scan",
                  splicetype,type,sep="/")
 outputseqlogo=paste(outputpath,"significant_pair_seqlogo",sep="/")
 outputbox=paste(outputpath,"significant_pair_boxplot",sep="/")
@@ -87,17 +81,17 @@ subrbpsqtllist=rbpsqtllist[which(motifdiff!=0),]
 #######################
 PSItype="logit"
 counttype="JC"
-inputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/5_correction_for_technical_confounders/result/",counttype,sep="")
-summaryinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary/",PSItype,"/",counttype,"/",splicetype,sep="")
-rootsqtl="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run"
-totalcountinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/1_get_matrix_from_rMATS/result/",counttype,sep="")
-GWASdbpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/GWAS_databases"
+inputpath="/path/to/corrected/PSI/value"
+summaryinput=paste("/path/to/summary/",PSItype,"/",counttype,"/",splicetype,sep="")
+rootsqtl="/path/to/sQTL_run"
+totalcountinput="./01_Get_PSI_from_rMATS_output/example_output"
+GWASdbpath="/path/to/GWAS_catalog/files"
 GWASdbname="gwas_catalog_v1.0.1-associations_e89_r2017-07-31.tsv"
-genoplinkprefix="Genotype_V7_plink_maf0.05"
-LDpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/LD"
-sqtlrootinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC",
+genoplinkprefix="genotype_file_name_prefix"
+LDpath="/path/to/LD/result"
+sqtlrootinput=paste("/path/to/sQTL_run/logit/JC",
                     splicetype,sep="/")
-rmatspostpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/brain_rMATS_post"
+rmatspostpath="/path/to/rMATS/post/result"
 
 #read in the PSI value
 inputPSI=paste(splicetype,"_",counttype,"_logit_corrected_PSI.txt",sep="")
@@ -118,13 +112,12 @@ if (PSItype=="logit"){
 }
 
 #read in exon effective length table
-elinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/1_get_matrix_from_rMATS/result/",counttype,sep="")
+elinput="./01_Get_PSI_from_rMATS_output/example_output"
 setwd(elinput)
 effectlengthsubset=try(suppressMessages(read.table(paste("subset_",counttype,".raw.input.",splicetype,".txt",sep=""),sep="\t",header=T)),silent=TRUE) 
 if (!(inherits(effectlengthsubset,"try-error"))){       #if we have already have the sutset file (the original file is too big)
   effectlength=effectlengthsubset
 }else{      #if we don't, we need to generate that
-  #setwd("/u/nobackup/yxing/NOBACKUP/harryyan/gtex_sqtl/gtex_rMATS/post_tissue/brain_rMATS_post")
   setwd(rmatspostpath)
   effectlengthfull=fread(paste(counttype,".raw.input.",splicetype,".txt",sep=""),sep="\t",header=T)
   effectlengthfull=as.data.frame(effectlengthfull)
@@ -139,14 +132,13 @@ if (!(inherits(effectlengthsubset,"try-error"))){       #if we have already have
 }
 rownames(effectlength)=rownames(PSI)
 #read in exon annotation table
-#setwd("/u/nobackup/yxing/NOBACKUP/harryyan/gtex_sqtl/gtex_rMATS/rMATS_splice_graph/brain_rMATS_post")
 setwd(rmatspostpath)
 fromGTF=read.table(paste("fromGTF.",splicetype,".txt",sep=""),sep="\t",header=T)
 
 #################
 #read in the TPM#
 #################
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/V7_expression_TPM")
+setwd("/input/to/GTEx/processed/gene/expression/data")
 normTPM=read.table("GTEx_Analysis_2016-01-15_v7_RNASeQCv1.1.8_gene_tpm_brain_normalized.txt",sep="\t",header=T,check.names=F)
 edata=normTPM
 rownames(edata)=paste(as.character(normTPM[,1]),as.character(normTPM[,2]),sep="_")
@@ -155,7 +147,7 @@ edata=edata[,-c(1,2)]
 ##########################
 #brain region information#
 ##########################
-phenotypepath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/2_get_phenotype_information/result"
+phenotypepath="./03_Get_sample_annotation/example_output"
 setwd(phenotypepath)
 oribrainregion=read.table("brain_region_table_brain.txt",sep="\t",header=T)
 oribrainregion[which(oribrainregion=="Brain - Amygdala")]="Brain-Amygdala"

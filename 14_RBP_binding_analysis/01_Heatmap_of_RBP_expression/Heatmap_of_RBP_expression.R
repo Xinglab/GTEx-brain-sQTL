@@ -4,8 +4,8 @@ library(reshape)
 library(RColorBrewer)
 require(scales)
 
-outputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/gene_expression_per_region"
-source("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/heatmap.3.R")
+outputpath="/output/path"
+source("/path/to/heatmap.3.R")
 
 vectorsplit=function(x,del,pos){
   return(strsplit(x,split=del)[[1]][pos])
@@ -25,8 +25,7 @@ formalbrainregionlist=c("Amygdala",
                         "Spinal cord cervical c-1",
                         "Substantia nigra")
 
-#read in the mean TPM in each brain region for all genes (this result is the same with mean_normalized_RBP_expression_per_region.txt, just with more information)
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/8.5_DE_analysis_oneforall_result_summary_and_plot/result/lmm_output_no_interaction_no_warning_one_full_model_original_age_oneforall_original_region_without_SVA/allgene/fdr=0.01~foldchange=10~deltaTPM=1")
+setwd("/path/to/mean/TPM/per/brain/region")
 allgenemeanTPM=as.matrix(read.table("DE_BR_allgene_lmm_output_no_interaction_no_warning_one_full_model_original_age_oneforall_original_region_without_SVA.txt",sep="\t",header=T,check.names=F))
 rowname=sapply(rownames(allgenemeanTPM),vectorsplit,del="_",pos=2)
 rownames(allgenemeanTPM)=rowname
@@ -34,10 +33,10 @@ allgenemeanTPM=allgenemeanTPM[,1:13]
 colnames(allgenemeanTPM)=formalbrainregionlist
 
 
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/data/RBP_list/RBP_from_NRG")
+setwd("/path/to/RBP/list")
 RBPlist=read.table("summarized_RBP_list.txt",sep="\t",header=T)
 RBPlist=as.character(RBPlist[,"gene.name"])
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/data/splicing_factor_list/SF_from_GR")
+setwd("/path/to/SF/list")
 SFlist=read.table("summarized_SF_list.txt",sep="\t",header=T)
 SFlist=subset(SFlist,SFlist[,"type"]=="RBP/SF")
 SFlist=as.character(SFlist[,"HGNC.symbol"])

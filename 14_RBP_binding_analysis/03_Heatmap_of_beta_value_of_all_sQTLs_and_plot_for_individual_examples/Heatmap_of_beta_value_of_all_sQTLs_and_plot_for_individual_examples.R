@@ -18,7 +18,7 @@ require(scales)
 library(corrplot)
 
 '%!in%' <- function(x,y)!('%in%'(x,y))
-source("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/heatmap.3.R")
+source("/path/to/heatmap.3.R")
 
 vectorsplit=function(x,del,pos){
   return(strsplit(x,split=del)[[1]][pos])
@@ -32,12 +32,12 @@ zscore=function(x){
   return((x-mean(x))/sd(x))     #z-score
 }
 
-outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_region_dependent_sQTL_plot_based_on_beta",
+outputpath=paste("/output/path/DeepBind/deepbind_region_dependent_sQTL_plot_based_on_beta",
                  splicetype,type,sep="/")
 command=paste("mkdir -p",outputpath)
 system(command)
 
-sqtlrootinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC",
+sqtlrootinput=paste("/path/to/sQTL_run/logit/JC",
                     splicetype,sep="/")
 
 brainregionlist=c("Brain-Amygdala",
@@ -69,13 +69,13 @@ formalbrainregionlist=c("Amygdala",
                         "Substantia nigra")
 
 #read in the joblist
-joblistinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
+joblistinput=paste("/output/path/DeepBind/deepbind_input/",splicetype,"/",type,sep="")
 setwd(joblistinput)
 uniquejoblist=read.table(paste(splicetype,"_",type,"_uniquejoblist.txt",sep=""),sep="\t")
 
 #get the full exon information
 #get all sQTL exons
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary/logit/JC"
+rootinput="/path/to/summary/logit/JC"
 sQTLexon=c()
 inputpath=paste(rootinput,splicetype,sep="/")
 setwd(inputpath)
@@ -145,7 +145,7 @@ exonlistshortID=as.character(singlebaseexonsnppair[,"Exon"])
 exonlistfullID=exonIDconversion[exonlistshortID,"fullID"]
 
 #get the disease exon list
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.1_sQTL_disease_exon_annotation/1_disease_exon_summary/result")
+setwd("/path/to/disease/exon/list")
 disexoninfo=read.table(paste("disease_exon_summary_",splicetype,"_",type,".txt",sep=""),sep="\t",header=T,check.names=F)
 
 for (i in 1:dim(diseaselabel)[1]){
@@ -223,19 +223,19 @@ library("data.table")
 library(gaston)
 library(boot)
 
-totalcountinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/1_get_matrix_from_rMATS/result/",counttype,sep="")
-summaryinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary",PSItype,counttype,splicetype,sep="/")
-rootsqtl="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run"
-genoplinkprefix="Genotype_V7_plink_maf0.05"
+totalcountinput="./01_Get_PSI_from_rMATS_output/example_output"
+summaryinput=paste("/path/to/summary",PSItype,counttype,splicetype,sep="/")
+rootsqtl="/path/to/sQTL_run"
+genoplinkprefix="genotype_file_name_prefix"
 
 singleoutputpath=paste(outputpath,"single_example_plot",sep="/")
 
 if (PSItype=="original"){   #original PSI value without any correction
-  psiinputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/1_get_matrix_from_rMATS/result/",counttype,sep="")  
+  psiinputpath="./01_Get_PSI_from_rMATS_output/example_output"
   inputPSI=paste(splicetype,"_",counttype,"_PSI_filter.txt",sep="")
 }
 if (PSItype=="logit"){     #logit PSI with correction (because we used corrected PSI for all the sQTL calculation, when we plot the result, we also use this but only transform it back to 0-1 scale)
-  psiinputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/5_correction_for_technical_confounders/result/",counttype,sep="")
+  psiinputpath="/path/to/corrected/PSI/value"
   inputPSI=paste(splicetype,"_",counttype,"_logit_corrected_PSI.txt",sep="")
 }
 inputtotalRC=paste(splicetype,"_",counttype,"_totalRC_filter.txt",sep="")
