@@ -20,11 +20,11 @@ code_folder=$3
 splicing_input=$4
 rootoutput=$5
 #V7:
-genotype_map_path="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/data/raw_data/files/genotype/V7_whole_exon_sequencing"
-genotype_map_name="Genotype_V7_plink_maf0.05.map"      #we don't use genotype information from X chromosome
-genotype_vcf_path="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/data/raw_data/files/genotype/V7_whole_exon_sequencing"
-genotype_vcf_name="GTEx_Analysis_2016-01-15_v7_WholeGenomeSeq_635Ind_PASS_AB02_GQ20_HETX_MISS15_PLINKQC_maf_0.01.vcf"
-brain_metadata="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/document/V7_annotation/gtex_v7_brain.txt"
+genotype_map_path="/path/to/genotype/file"
+genotype_map_name="genotype_file_name_prefix"      #we don't use genotype information from X chromosome
+genotype_vcf_path="/path/to/genotype/file"
+genotype_vcf_name="name_of_genotype_vcf_file"
+brain_metadata="/path/to/brain/tissue/annotation/file/gtex_v7_brain.txt"
 
 mkdir -p $rootoutput
 
