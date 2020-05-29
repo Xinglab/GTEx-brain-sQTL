@@ -1,6 +1,6 @@
-inputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/4.6_data_inspection_PCA_on_genotype/result/PCA"
-inputvec="Genotype_V7_plink_binary_maf0.05.eigenvec"
-inputval="Genotype_V7_plink_binary_maf0.05.eigenval"
+inputpath="/input/path/for/PCA/result"
+inputvec="PCA_result_prefix.eigenvec"
+inputval="PCA_result_prefix.eigenval"
 label="unpruned"
 outputpath=inputpath
 
@@ -13,10 +13,10 @@ colnames(pca.x)=paste("PC",seq(1,dim(pca.val)[1]),sep="")
 
 #get race information#
 #population information
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/gtex_v7_phenotype")
+setwd("/input/path/to/GTEx/phenotype/result")
 phenotypename="phs000424.v7.pht002742.v7.p2.c1.GTEx_Subject_Phenotypes.GRU.txt"
 phenotype=read.table(phenotypename,sep="\t",skip=10,header=T,fill=TRUE,quote="")
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/document/V7_annotation")
+setwd("/input/path/to/GTEx/brain/tissue/sample/annotation")
 annotation=read.csv("gtex_v7_brain.csv",header=T)
 race=rep(NA,length(rownames(pca.x)))
 for (i in 1:length(rownames(pca.x))){
