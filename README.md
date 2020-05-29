@@ -1,6 +1,6 @@
 # GTEx-brain-sQTL
 
-The present folder contains all scripts from the manuscript entitled 'Regional variation of splicing QTLs in the human brain'
+The present folder contains scripts from the manuscript entitled 'Regional variation of splicing QTLs in the human brain'
 
 These scripts are meant to provide additional transparency on the code underlying the results from the manuscript. 
 
