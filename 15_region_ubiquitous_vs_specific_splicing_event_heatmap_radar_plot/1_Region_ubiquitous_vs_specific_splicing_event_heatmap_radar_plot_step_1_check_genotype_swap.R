@@ -1,13 +1,13 @@
-outputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot"
+outputpath="/path/to//12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot"
 #####################
 #check genotype swap#
 #####################
-#shell code:
-cd /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/data/raw_data/files/genotype/V7_whole_exon_sequencing
-cut -f 3,4,5 GTEx_Analysis_2016-01-15_v7_WholeGenomeSeq_635Ind_PASS_AB02_GQ20_HETX_MISS15_PLINKQC_maf_0.01.vcf | sed 's/[\t]/\t/g' > Variant_ref_alt_lookup_table.txt
+setwd("/path/to/genotype/data")
+command="cut -f 3,4,5 GTEx_Analysis_2016-01-15_v7_WholeGenomeSeq_635Ind_PASS_AB02_GQ20_HETX_MISS15_PLINKQC_maf_0.01.vcf | sed 's/[\t]/\t/g' > Variant_ref_alt_lookup_table.txt"
+system(command)
 
 #R code start from here
-VCFpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/data/raw_data/files/genotype/V7_whole_exon_sequencing"
+VCFpath="/path/to/genotype/data"
 Lookuptablename="Variant_ref_alt_lookup_table.txt"
 
 setwd(VCFpath)

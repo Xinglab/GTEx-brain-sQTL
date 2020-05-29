@@ -1,8 +1,8 @@
 rangelist=c("200kb")
 filelist=c("pvalue","beta")
 outputprefixlist=c("pvmatrix","betamatrix")
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot/Region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot_step_3_pick_SNP_and_collect_values_for_heatmap_more_stringent_version/single_job_run/result/200kb"
-sqtlrootinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC",
+rootinput="/path/to/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot/Region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot_step_3_pick_SNP_and_collect_values_for_heatmap_more_stringent_version/single_job_run/result/200kb"
+sqtlrootinput=paste("/path/to/sQTL_run/logit/JC",
                     "SE",sep="/")
 
 ###################################
@@ -53,7 +53,7 @@ write.table(pvmatrix200k,"pvmatrix_200kb.txt",sep="\t")
 ############################################################################################
 #calculate number of significant regions & the location of each SNP & the rs ID of each SNP#
 ############################################################################################
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot/200kb_highp")
+setwd("/path/to/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot/200kb_highp")
 lcmatrix200k=read.table("lcmatrix200k_highp.txt",sep="\t",header=T,check.names=F)
 topsnpmatrix200k=read.table("topsnpmatrix200k_highp.txt",sep="\t",header=T,check.names=F)
 rsmatrix200k=read.table("rsmatrix200k_highp.txt",sep="\t",header=T,check.names=F)

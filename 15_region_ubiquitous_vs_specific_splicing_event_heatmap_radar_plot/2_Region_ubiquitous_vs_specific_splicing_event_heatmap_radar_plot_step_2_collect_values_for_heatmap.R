@@ -1,12 +1,12 @@
 #The purpose of this code is for each sQTL exon, we go through each brain region and find the SNP with the smallest p value
 #then we collect that p value, beta value, location of that SNP and ID of that SNP
 
-outputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot"
+outputpath="/path/to/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot"
 splicetype="SE"
 PSItype="logit"
 type="pvalue"
 counttype="JC"
-sqtlrootinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC",
+sqtlrootinput=paste("/path/to/sQTL_run/logit/JC",
                     splicetype,sep="/")
 
 brainregionlist=c("Brain-Amygdala",
@@ -242,7 +242,7 @@ getrsID=function(x,rsIDtable){
 #Collect all the information#
 #############################
 #read in the exon information table
-exoninfopath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing",
+exoninfopath=paste("/path/to/input_splicing",
                    PSItype,counttype,splicetype,sep="/")
 setwd(exoninfopath)
 exoninfo=read.table(paste("exon_info.fromGTF.",splicetype,".txt",sep=""),sep="\t",header=T)
@@ -253,7 +253,7 @@ setwd(outputpath)
 lookup=read.table("Genotype_swap_lookup_table.txt",sep="\t",header=T)
 
 #get all sQTL exons
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary/logit/JC"
+rootinput="/path/to/summary/logit/JC"
 sQTLexon=c()
 inputpath=paste(rootinput,splicetype,sep="/")
 setwd(inputpath)
@@ -339,22 +339,6 @@ for (i in 1:length(sQTLexon)){
     }else{
       betamatrix200k[i,br]=-beta
     }
-    
-    #row=which(exonresult[,"pvals.lm"]==min(exonresult[,"pvals.lm"]))       #the SNP(s) with the smallest p value
-    #if (length(row>1)){            #if we have multiple SNPs with the same p value, we choose the one with the largest effect size
-    #  rowbeta=which(abs(exonresult300[row,"Beta"])==max(abs(exonresult300[row,"Beta"])))
-    #  if (length(rowbeta)>1){      #if we have multiple SNPs with the same p value and same beta, we choose the one with the 
-    #    
-    #  }
-      
-    #  subrow=exonresult[row,][which(abs(exonresult[row,"Beta"])==max(abs(exonresult[row,"Beta"]))),]
-    #  pvalue=subrow[,"pvals.lm"]
-    #  beta=subrow[,"Beta"]
-    #  snploci=as.character(subrow[,"location"])
-    #  snpID=as.character(subrow[,"SNPID"])
-    #  rsID=getrsID(snpID,rstable)
-    #}else{
-    #}
     
     #############################
     #for SNPs within 300bp range#

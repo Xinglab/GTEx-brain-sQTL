@@ -1,10 +1,3 @@
-#The difference between this code and Region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot_step_4_classification_and_plot.R
-#is that in this code, instead of classifying exons purely based on the number of significant regions
-#we use more stringent criteria:
-#region specific: no more than 4 significant regions (p < 1e-5) & at least one region pass the FDR cutoff
-#region ubiquitous: at least 10 regions pass the FDR cutoff
-
-
 brainregionlist=c("Brain-Amygdala",
                        "Brain-AnteriorcingulatecortexBA24",
                        "Brain-Caudatebasalganglia",
@@ -33,7 +26,7 @@ formalbrainregionlist=c("Amygdala",
                         "Spinal cord cervical c-1",
                         "Substantia nigra")
 
-inputpath="/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot/Region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot_step_3_pick_SNP_and_collect_values_for_heatmap_more_stringent_version/single_job_run/result/200kb"
+inputpath="/path/to/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot/Region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot_step_3_pick_SNP_and_collect_values_for_heatmap_more_stringent_version/single_job_run/result/200kb"
 
 zscore=function(x){
   return((x-mean(x))/sd(x))     #z-score
@@ -43,7 +36,7 @@ zscore=function(x){
 splicetype="SE"
 type="pvalue"
 
-source("/u/project/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.3_motif_analysis/individual_exon_binding_peaks_scan/DeepBind/heatmap.3.R")
+source("/path/to/heatmap.3.R")
 
 library(robust)
 library(gplots)
@@ -126,10 +119,6 @@ for (group in 1:2){
 specific=numsig.lc.rs200k[which(numsig.lc.rs200k[,"numsigregion.p"]<=4),]
 ubiquitous=numsig.lc.rs200k[which(numsig.lc.rs200k[,"numsigregion.fdr"]>=10),]
 
-#for the SNP location of each exon here, currently, the location is based on the location of the "top" SNP.
-#the "top" SNP is also what we used for classification.
-#however, for the statistical test here, we want to use the significant SNP with the best category (like what we did for SNP_to_SS_distance_vs_brain_region_specificity)
-
 #read in the result from SNP_to_SS_distance_vs_brain_region_specificity
 setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/SNP_to_SS_distance_vs_brain_region_specificity/closest_significant_SNP_categorized_distance/5_categories")
 exonclass=read.table(paste(splicetype,"_",type,"_exonclass.txt",sep=""),sep="\t",header=T)[,1:length(brainregionlist)]
@@ -154,11 +143,6 @@ ubiquitous=cbind(ubiquitous,newlclist)
 #chi square test
 data2test=cbind(table(specific[,"newlclist"]),table(ubiquitous[,"newlclist"]))
 fisher.test(data2test,workspace=2e+07,hybrid=TRUE)
-#For larger than  2 by 2 tables and 'hybrid = TRUE', asymptotic
-#chi-squared probabilities are only used if the 'Cochran 
-#conditions' are satisfied, that is if no cell has count zero, and 
-#more than 80% of the cells have counts at least 5. 
-#p-value < 2.2e-16 for (4,10),(3,11),(2,12) and (1,13)
 
 #stacked bar plot
 data2plot=as.data.frame(cbind(table(specific[,"newlclist"]),table(ubiquitous[,"newlclist"])))
@@ -202,36 +186,6 @@ system(command)
 pair2plot=c("71949|ENSG00000073350.13_2|LLGL2|chr17|+|73570533|73570576|73570191|73570341|73570690|73570749~17_73561717_G_A_b37",
             "300088|ENSG00000135502.17_3|SLC26A10|chr12|+|58019018|58019113|58018905|58018939|58019192|58019247~12_58018979_C_T_b37",
             "88314|ENSG00000139793.18_3|MBNL2|chr13|+|98009049|98009103|97999294|97999321|98009735|98009889~13_97891187_T_C_b37")
-
-pair2plot=c("9666|ENSG00000019144.18_3|PHLDB1|chr11|+|118484008|118484165|118478329|118478414|118484530|118484611~11_118478330_G_A_b37",
-            "171698|ENSG00000205702.10_2|CYP2D7|chr22|-|42537634|42537685|42537271|42537349|42537877|42537934~22_42538103_T_C_b37")
-
-pair2plot=c("359526|ENSG00000258366.7_3|RTEL1|chr20|+|62320854|62321001|62320407|62320485|62321102|62321218~20_62320968_T_C_b37",
-            "263001|ENSG00000234127.8_3|TRIM26|chr6|-|30172432|30172542|30168811|30168915|30181081|30181142~6_30172513_A_C_b37",
-            "258236|ENSG00000176731.11_2|C8orf59|chr8|-|86131464|86131592|86129614|86129731|86132534|86132613~8_86131463_A_T_b37",
-            "258235|ENSG00000176731.11_2|C8orf59|chr8|-|86131464|86131589|86129614|86129731|86132534|86132582~8_86131463_A_T_b37",
-            "270494|ENSG00000105136.20_3|ZNF419|chr19|+|58003480|58003579|57999332|58002965|58004223|58005151~19_58003580_A_G_b37",
-            "222152|ENSG00000137312.14_2|FLOT1|chr6|-|30708966|30709110|30708455|30708575|30709390|30709481~6_30708955_C_T_b37",
-            "344917|ENSG00000165915.13_2|SLC39A13|chr11|+|47434950|47435058|47433852|47434018|47435147|47435237~11_47434986_G_A_b37",
-            "128125|ENSG00000171604.11_2|CXXC5|chr5|+|139059431|139059525|139028245|139028430|139059948|139060141~5_139059562_A_G_b37",
-            "303254|ENSG00000184271.16_3|POU6F1|chr12|-|51593529|51593651|51592332|51592469|51597955|51598151~12_51599339_A_G_b37",
-            "370678|ENSG00000077782.19_3|FGFR1|chr8|-|38286764|38286908|38285863|38285953|38287199|38287466~8_38286811_C_G_b37",
-            "189436|ENSG00000186868.15_3|MAPT|chr17|+|44051750|44051837|44049224|44049311|44055740|44055806~17_43950441_C_A_b37")
-
-#pair2plot=c("90646|ENSG00000122687.17_3|MRM2|chr7|-|2277649|2278572|2273929|2275199|2279052|2279342~7_2278226_C_T_b37",
-##            "370678|ENSG00000077782.19_3|FGFR1|chr8|-|38286764|38286908|38285863|38285953|38287199|38287466~8_38286811_C_G_b37",
-#            "359526|ENSG00000258366.7_3|RTEL1|chr20|+|62320854|62321001|62320407|62320485|62321102|62321218~20_62322699_A_G_b37",
-#            "9912|ENSG00000169220.17_2|RGS14|chr5|+|176798475|176798590|176798350|176798397|176798873|176799167~5_176799992_T_C_b37",
-#            "222152|ENSG00000137312.14_2|FLOT1|chr6|-|30708966|30709110|30708455|30708575|30709390|30709481~6_30708955_C_T_b37",
-#            "229974|ENSG00000206530.10_3|CFAP44|chr3|-|113012798|113012885|113009699|113010595|113013533|113013668~3_113012797_G_A_b37",
-#            "344917|ENSG00000165915.13_2|SLC39A13|chr11|+|47434950|47435058|47433852|47434018|47435147|47435237~11_47434986_G_A_b37",
-#            "108171|ENSG00000035115.21_3|SH3YL1|chr2|-|224863|224920|218148|219001|229965|230044~2_221981_C_T_b37",
-#            "108190|ENSG00000035115.21_3|SH3YL1|chr2|-|242797|242871|234159|234272|247537|247602~2_242793_G_C_b37",
-#            "108192|ENSG00000035115.21_3|SH3YL1|chr2|-|243502|243562|234159|234272|247537|247602~2_242793_G_C_b37",
-#            "128125|ENSG00000171604.11_2|CXXC5|chr5|+|139059431|139059525|139028245|139028430|139059948|139060141~5_139059562_A_G_b37",
-#            "263001|ENSG00000234127.8_3|TRIM26|chr6|-|30172432|30172542|30168811|30168915|30181081|30181142~6_30172513_A_C_b37",
-#            "303254|ENSG00000184271.16_3|POU6F1|chr12|-|51593529|51593651|51592332|51592469|51597955|51598151~12_51592761_C_A_b37",
-#            "189436|ENSG00000186868.15_3|MAPT|chr17|+|44051750|44051837|44049224|44049311|44055740|44055806~17_44207360_C_T_b37")
 
 for (pair in pair2plot){
   temp=strsplit(pair,split="~")[[1]]

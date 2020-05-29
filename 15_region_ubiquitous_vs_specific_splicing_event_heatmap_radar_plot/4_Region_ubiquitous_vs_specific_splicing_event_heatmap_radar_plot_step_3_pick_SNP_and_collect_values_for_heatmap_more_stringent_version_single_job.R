@@ -1,15 +1,3 @@
-#So far, for each sQTL exon, we have the snp with the smallest p value and all the information of that SNP for each brain region. 
-#Before making the plot, for each sQTL exon, we need to pick one SNP from all the top SNPs. 
-#The way we pick the SNP is this:
-#We first choose the significant snp (p value < permutation p value cutoff) which is the top snp in the highest number of regions
-#If there is a tie, among ties we pick the significant snp which is significant in the highest number of regions. 
-#And if there is a tie again we pick the one closest to the exon
-#So here, for each exon, we pick the SNP based on this criteria and collect the p value & beta of that SNP across all 13 brain regions
-
-#we only focus on the result based on 200kb
-
-#So the only difference is that we use permutation p value cutoff to call significant instead of 1e-5
-
 brainregionlist=c("Brain-Amygdala",
                   "Brain-AnteriorcingulatecortexBA24",
                   "Brain-Caudatebasalganglia",
@@ -28,10 +16,10 @@ splicetype="SE"
 PSItype="logit"
 type="pvalue"
 counttype="JC"
-sqtlrootinput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC",
+sqtlrootinput=paste("/path/to/sQTL_run/logit/JC",
                     splicetype,sep="/")
-outputpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot/Region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot_step_3_pick_SNP_and_collect_values_for_heatmap_more_stringent_version/single_job_run/result/200kb"
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot"
+outputpath="/path/to/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot/Region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot_step_3_pick_SNP_and_collect_values_for_heatmap_more_stringent_version/single_job_run/result/200kb"
+rootinput="/path/to/12_region_ubiquitous_vs_specific_splicing_event_heatmap_radar_plot"
 
 pick_category=function(list_of_category,order_of_importance){      
   #given a list of categories and the order we want to use, this function will return one category from the list based on the order of importance
@@ -68,7 +56,7 @@ betapickexon=pvaluepickexon=matrix(NA,1,length(brainregionlist))   #p value and 
 ###################
 #Other preparation#
 ###################
-exoninfopath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing",
+exoninfopath=paste("/path/to/input_splicing",
                    PSItype,counttype,splicetype,sep="/")
 setwd(exoninfopath)
 exoninfo=read.table(paste("exon_info.fromGTF.",splicetype,".txt",sep=""),sep="\t",header=T)
@@ -79,7 +67,7 @@ setwd(rootinput)
 lookup=read.table("Genotype_swap_lookup_table.txt",sep="\t",header=T)
 
 #get all sQTL exons
-rootinput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary/logit/JC"
+rootinput="/path/to/summary/logit/JC"
 sQTLexon=c()
 inputpath=paste(rootinput,splicetype,sep="/")
 setwd(inputpath)
