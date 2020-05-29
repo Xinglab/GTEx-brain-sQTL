@@ -19,7 +19,7 @@ rootoutput=$4
 counttype=$5
 PSItype=$6
 
-GWASdb="/path/to/GWASdb/file/gwas_catalog_v1.0.1-associations_e89_r2017-07-31.tsv"
+GWASdb="/path/to/GWAS_catalog/file/gwas_catalog_v1.0.1-associations_e89_r2017-07-31.tsv"
     
 ###########################
 #8. summarize final result#

@@ -3,18 +3,18 @@
 splicetype="SE"      #type of alternative splicing, e.g., SE, A3SS, A5SS, MXE, IR
 counttype="JC"       #JCEC (junction count + exon body count) or JC (junction count only)
 PSItype="logit"      #logit (logit transformed PSI value) or original (original PSI from 0 to 1)
-exoninfopath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing",
+exoninfopath=paste("/path/to/input_splicing",
                    PSItype,counttype,splicetype,sep="/")
-codepath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/scripts"
-rootoutput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run",
+codepath="/path/to/sQTL/calculation/code"
+rootoutput=paste("/path/to/sQTL_run",
                  PSItype,counttype,splicetype,sep="/")
-outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary",PSItype,counttype,splicetype,sep="/")
+outputpath=paste("/output/path/summary",PSItype,counttype,splicetype,sep="/")
 
 
 ###########################################################################
 #read in GWAS catalog SNPs and filter out marginally significant GWAS SNPs#
 ###########################################################################
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/GWAS_databases")
+setwd("/path/to/GWAS_catalog/file")
 GWAS=read.table("gwas_catalog_v1.0.1-associations_e89_r2017-07-31.tsv",sep="\t",header=T,check.names=F,quote="",fill=T)
 
 hc_GWAS=subset(GWAS,GWAS[,"P-VALUE"]<=5e-8)

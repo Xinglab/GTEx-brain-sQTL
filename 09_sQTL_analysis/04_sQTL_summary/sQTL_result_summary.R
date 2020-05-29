@@ -1,12 +1,12 @@
 splicetype="SE"      #type of alternative splicing, e.g., SE, A3SS, A5SS, MXE, IR
 counttype="JC"       #JCEC (junction count + exon body count) or JC (junction count only)
 PSItype="logit"      #logit (logit transformed PSI value) or original (original PSI from 0 to 1)
-exoninfopath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing",
+exoninfopath=paste("/path/to/input_splicing",
                    PSItype,counttype,splicetype,sep="/")
-codepath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/scripts"
-rootoutput=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run",
+codepath="/path/to/sQTL/calculation/code"
+rootoutput=paste("/path/to/sQTL_run",
                  PSItype,counttype,splicetype,sep="/")
-outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/summary",PSItype,counttype,splicetype,sep="/")
+outputpath=paste("/output/path/summary",PSItype,counttype,splicetype,sep="/")
 
 
 ##################################

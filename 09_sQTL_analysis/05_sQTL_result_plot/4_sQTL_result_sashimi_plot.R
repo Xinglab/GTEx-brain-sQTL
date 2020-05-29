@@ -94,7 +94,7 @@ if (!(inherits(effectlengthsubset,"try-error"))){       #if we have already have
 rownames(effectlength)=rownames(PSI)
 
 #read in exon annotation table
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/brain_rMATS_post")
+setwd("/path/to/rMATS/post/step/output")
 fromGTF=read.table(paste("fromGTF.",splicetype,".txt",sep=""),sep="\t",header=T)
 
 #generate output folder for sashimi plot

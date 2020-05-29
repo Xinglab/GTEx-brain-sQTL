@@ -1,13 +1,3 @@
-#table of content
-#1. single exon sQTL plot - Glimmpse plot
-#2. single exon sQTL plot - Glimmpse plot (across all brain regions). This uses the result from step 4
-#3. single exon sQTL plot - Haploview plot
-#of note, only sQTLs related to diseases will have plot 1 and 3, but all significant sQTLs will have plot 2. 
-#So there will be events with plot 2 but not plot 1/3 because they are not related to any of the 10 diseases
-#Also the number of events with plot 3 can be fewer than the number of events with plot 1 because 
-#if the sQTL is in high LD with itself and there is no other GWAS loci, that events is not plotted in plot 3 but it is still plotted in plot 1
-
-
 args <- commandArgs(TRUE)
 splicetype=args[1]
 counttype=args[2]
