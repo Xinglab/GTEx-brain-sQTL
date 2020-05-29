@@ -3,7 +3,7 @@ counttype="JC"       #JCEC (junction count + exon body count) or JC (junction co
 
 ###read in original PSI value and transform that into logit PSI###
 library(boot)
-inputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/4.2_data_inspection_imputation/result/",counttype,sep="")
+inputpath="./02_PSI_value_quantification/02_Imputation/example_output"
 setwd(inputpath)
 impute_PSI_filter=read.table(paste(splicetype,"_",counttype,"_impute_PSI_filter_KNN.txt",sep=""),sep="\t",header=T)   #we use imputed PSI here since the SVs are based on SVA analysis and the SVA analysis is done on imputed PSI value (SVA cannot be run on data with missing values)
 #transform PSI to logit(PSI)
@@ -17,15 +17,15 @@ colnames(logitPSI)=colnames(impute_PSI_filter)
 logitPSI=as.data.frame(logitPSI)
 impute_PSI_filter=logitPSI
 
-outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/5_correction_for_technical_confounders/result/",counttype,sep="")
+outputpath="/output/path"
 command=paste("mkdir -p ",outputpath,sep="")
 system(command)
 setwd(outputpath)
 
 
 ###read in genotype PCA result###
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/4.6_data_inspection_PCA_on_genotype/result/PCA")
-inputvec="Genotype_V7_plink_binary_pruned_maf0.05.eigenvec"
+setwd("/path/for/genotype/PCA/result")
+inputvec="PCA_result_prefix.eigenvec"
 pca.x=read.table(inputvec,sep=" ")
 rownames(pca.x)=pca.x[,1]
 pca.x=pca.x[,-c(1,2)]
@@ -36,7 +36,7 @@ sample.pca.x=matrix(NA,dim(impute_PSI_filter)[2],dim(pca.x)[2])
 rownames(sample.pca.x)=colnames(impute_PSI_filter)
 colnames(sample.pca.x)=colnames(pca.x)
 
-IDconversionpath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/document/V7_annotation"
+IDconversionpath="/input/path/to/GTEx/brain/tissue/sample/annotation"
 IDconversionname="gtex_v7_brain.csv" 
 setwd(IDconversionpath)
 IDconversion=read.csv(IDconversionname,header=T)
@@ -49,7 +49,7 @@ for (i in 1:dim(sample.pca.x)[1]){
 
 
 ###read in SVA result###
-inputSVApath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/4.8_data_inspection_SVA/based_on_logit_PSI/result/",counttype,sep="")
+inputSVApath="/path/for/SVA/result/on/PSI"
 inputSVAname=paste(splicetype,"_",counttype,"_SVA_brain_surrogate_variable.txt",sep="")
 setwd(inputSVApath)
 SVA=try(suppressMessages(read.table(inputSVAname,sep="\t")),silent=TRUE)

@@ -3,7 +3,7 @@ counttype="JC"       #JCEC (junction count + exon body count) or JC (junction co
 
 library(boot)
 
-inputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/4.2_data_inspection_imputation/result/",counttype,sep="")
+inputpath="./02_PSI_value_quantification/02_Imputation/example_output"
 setwd(inputpath)
 impute_PSI_filter=read.table(paste(splicetype,"_",counttype,"_impute_PSI_filter_KNN.txt",sep=""),sep="\t",header=T)
 #transform PSI to logit(PSI)
@@ -18,7 +18,7 @@ logitPSI=as.data.frame(logitPSI)
 impute_PSI_filter=logitPSI
 
 #read in phenotype information
-phenotypepath="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/2_get_phenotype_information/result"
+phenotypepath="./03_Get_sample_annotation/example_output"
 setwd(phenotypepath)
 age=read.table("agetable_brain.txt",sep="\t",header=T)           
 gender=read.table("gendertable_brain.txt",sep="\t",header=T)          #current gender is numeric data, not categorical data. It needs to be changed to categorical data for further model fitting
@@ -31,7 +31,7 @@ pheno=cbind(t(as.matrix(gender)),t(as.matrix(brainregion)))   #phenotypes on the
 pheno=as.data.frame(pheno)
 edata = as.matrix(impute_PSI_filter)
 
-outputpath=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/4.8_data_inspection_SVA/result/",counttype,sep="")
+outputpath="/output/path"
 command=paste("mkdir -p ",outputpath,sep="")
 system(command)
 setwd(outputpath)
