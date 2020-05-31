@@ -1,0 +1,1 @@
+The purpose of this code is to run SVA analysis on the PSI values of splicing events to estimate surrogate variables.

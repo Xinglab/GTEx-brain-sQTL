@@ -1,0 +1,1 @@
+The purpose of this code is to run PCA analysis on the genotype data and visualize the result. 

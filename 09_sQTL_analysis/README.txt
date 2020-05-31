@@ -1,0 +1,1 @@
+This folder contains code for the complete sQTL analysis from processing genotype data to sQTL calculation, followed by result summary and visualization.
