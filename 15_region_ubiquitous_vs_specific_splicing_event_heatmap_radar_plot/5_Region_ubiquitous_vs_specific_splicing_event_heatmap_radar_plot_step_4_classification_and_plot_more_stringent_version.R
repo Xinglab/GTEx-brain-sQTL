@@ -120,7 +120,7 @@ specific=numsig.lc.rs200k[which(numsig.lc.rs200k[,"numsigregion.p"]<=4),]
 ubiquitous=numsig.lc.rs200k[which(numsig.lc.rs200k[,"numsigregion.fdr"]>=10),]
 
 #read in the result from SNP_to_SS_distance_vs_brain_region_specificity
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6.2_sQTL_SNP_annotation/result/SNP_to_SS_distance_vs_brain_region_specificity/closest_significant_SNP_categorized_distance/5_categories")
+setwd("/path/to/result/of/05_SNP_position_distribution_vs_brain_region_specificity")
 exonclass=read.table(paste(splicetype,"_",type,"_exonclass.txt",sep=""),sep="\t",header=T)[,1:length(brainregionlist)]
 
 #update the location variable for the two classes of exons

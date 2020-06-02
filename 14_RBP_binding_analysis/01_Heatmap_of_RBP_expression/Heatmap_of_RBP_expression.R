@@ -44,7 +44,7 @@ SFlist=as.character(SFlist[,"HGNC.symbol"])
 allRBP=unique(c(RBPlist,SFlist))
 
 #get the RBP list from DeepBind
-RBPdb="/u/nobackup/yxing/PROJECT/yidazhan/research/software/deepbind/db/db.tsv"
+RBPdb="/path/to/deepbind/db/db.tsv"
 RBPtable=read.table(RBPdb,sep="\t",header=T)
 subRBPtable=subset(RBPtable,RBPtable[,"Species"]=="Homo sapiens")
 subRBPtable=subset(subRBPtable,subRBPtable[,"Type"]=="RBP")

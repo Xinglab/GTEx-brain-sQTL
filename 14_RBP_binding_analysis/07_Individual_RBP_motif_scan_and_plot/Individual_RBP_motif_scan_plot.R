@@ -163,7 +163,7 @@ oribrainregion[which(oribrainregion=="Brain - Nucleus accumbens (basal ganglia)"
 oribrainregion[which(oribrainregion=="Brain - Putamen (basal ganglia)")]="Brain-Putamenbasalganglia"
 oribrainregion[which(oribrainregion=="Brain - Spinal cord (cervical c-1)")]="Brain-Spinalcordcervicalc-1"
 oribrainregion[which(oribrainregion=="Brain - Substantia nigra")]="Brain-Substantianigra"
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/V7_expression_TPM")
+setwd("/input/to/GTEx/processed/gene/expression/data")
 IDconversion=read.table("SRRID_2_GTEXID.txt",sep="\t",header=T)
 rownames(IDconversion)=IDconversion[,"sampleID"]
 
@@ -484,7 +484,7 @@ for (i in 1:dim(subrbpsqtllist)[1]){
       sampleID2=names(which(exongeno==2))
       samplesize=c(length(sampleID0),length(sampleID1),length(sampleID2))
       ###make sashimi plot###
-      rootbam="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/V7_all_bam_soft_link/"   #the folder containing all BAM files
+      rootbam="/path/to/BAM/files/"   #the folder containing all BAM files
       
       exoninfo=getexon(exonfullID)
       #generate folders for the plot
@@ -548,7 +548,7 @@ for (i in 1:dim(subrbpsqtllist)[1]){
         
         #run sashimi plot command
         command=paste(#"source /u/local/Modules/default/init/modules.sh",
-          "/u/nobackup/yxing/PROJECT/yidazhan/research/software/anaconda2/bin/rmats2sashimiplot",
+          "/path/to/rmats2sashimiplot",
           "--b1", b1,
           "--b2", b2,
           "-t", splicetype,

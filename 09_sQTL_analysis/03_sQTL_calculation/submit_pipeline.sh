@@ -7,7 +7,7 @@
 #$ -e ./part1_log/
 #$ -o ./part1_log/
 
-code_folder="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/scripts"
+code_folder="/path/to/sQTL/scripts"
 
 splicetype="SE"        ###change###
 counttype="JC"
@@ -16,8 +16,8 @@ PSItype="logit"
 #PSItype="original" means the PSI value is before logit transformation and no confounder correction. In this case, we will do logit transformation later in the pipeline
 #the idea here is to run the sQTL analysis on data before + after confounder correction so eventually they are both on logit scale
 
-splicing_input="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/"$PSItype/$counttype/$splicetype
-rootoutput="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/"$PSItype/$counttype/$splicetype 
+splicing_input="/path/to/input_splicing/"$PSItype/$counttype/$splicetype
+rootoutput="/path/to/sQTL_run/"$PSItype/$counttype/$splicetype 
 
 
 cd $code_folder

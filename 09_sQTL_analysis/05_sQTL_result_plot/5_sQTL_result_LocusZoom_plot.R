@@ -230,7 +230,7 @@ for (br in 1:length(brainregionlist)){
             write.table(snpconvert,"snpconvert.txt",sep="\t",quote=F,row.names=F,col.names=F)
             
             #2. convert them into rsID
-            command=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/software/anaconda2/bin/python",IDconvertscript,paste(opath,"snpconvert.txt",sep="/"),strsplit(chr,split="chr")[[1]][2])
+            command=paste("/path/to/python",IDconvertscript,paste(opath,"snpconvert.txt",sep="/"),strsplit(chr,split="chr")[[1]][2])
             system(command)
             
             #3. generate input for locus zoom plot

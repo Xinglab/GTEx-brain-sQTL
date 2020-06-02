@@ -377,12 +377,7 @@ t2g=try(suppressMessages(biomaRt::getBM(attributes = c("ensembl_transcript_id", 
 if (!(inherits(t2g,"try-error"))){ 
   #t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id,ens_gene = ensembl_gene_id, ext_gene = external_gene_name, genetitle=description)
   t2g=t2g
-}else{
-  print("cannot connect to BiomaRt")
-  setwd("/u/home/y/yidazhan")
-  t2g=as.matrix(read.table("t2g_hg19.txt",sep="\t",header=T))
 }
-
 
 for (t in 1:2){
   output=matrix(NA,1,28)

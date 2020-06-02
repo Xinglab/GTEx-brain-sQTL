@@ -74,7 +74,6 @@ def parseVCFfile(fin, filename, genotypename, snp_dict, sample_list, sample_dict
 
 def main():
 
-	#sample_dict=loadSampleDict('/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/data/annotation/v6/brain_all.txt') # Sra run table  
 	brain_metadata=sys.argv[5]
 	sample_dict=loadSampleDict(brain_metadata) # Sra run table  #my modification
 	print 'sample and donor list:', len(sample_dict)

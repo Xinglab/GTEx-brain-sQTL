@@ -14,21 +14,6 @@
 # exonindex_end
 # permutation id
 
-#example input
-#setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC/SE/Brain-Cerebellum")
-#args=c("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE/exon_info.fromGTF.SE.txt",
-#       "/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE/Brain-Cerebellum/GTEx_brain_totalRC.txt",
-#       "/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE/Brain-Cerebellum/GTEx_brain_IC.txt",
-#       "Genotype_V7_plink_maf0.05",
-#       "chr1", 
-#       "501", 
-#       "1000",
-#       "2",
-#       "Brain-Cerebellum",
-#       "/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC/SE/Brain-Cerebellum",
-#       "logit")
-
-
 library("data.table")
 args = commandArgs(TRUE)
 

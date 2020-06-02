@@ -17,19 +17,6 @@
 # exonindex
 # exonindex_end
 
-#example input
-#setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC/SE/Brain-Caudatebasalganglia")
-#args=c("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE/exon_info.fromGTF.SE.txt",
-#       "/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE/Brain-Caudatebasalganglia/GTEx_brain_totalRC.txt",
-#       "/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/input_splicing/logit/JC/SE/Brain-Caudatebasalganglia/GTEx_brain_IC.txt",
-#       "Genotype_V7_plink_maf0.05",
-#       "chr1",
-#       "1",
-#       "500",
-#       "Brain-Caudatebasalganglia",
-#       "/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/analysis/6_sQTL_analysis/sQTL_run/logit/JC/SE/Brain-Caudatebasalganglia",
-#       "logit")
-
 library("data.table")
 args = commandArgs(TRUE)
 

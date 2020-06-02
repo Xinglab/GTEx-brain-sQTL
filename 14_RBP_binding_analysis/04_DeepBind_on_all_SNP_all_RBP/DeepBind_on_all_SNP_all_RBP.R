@@ -105,7 +105,7 @@ windowscore_calculator=function(scorematrix,scorematrix_WT,scorematrix_WT0,score
       mutseqfilename=paste("mutant_seq_",windownumber,"_",n,"_",substitute[t],".seq",sep="")
       write.table(mutseq,mutseqfilename,sep="\t",col.names=F,row.names=F,quote=F)
       #run deepbind to get the score p(s_hat)
-      command=paste("/u/nobackup/yxing/PROJECT/yidazhan/research/software/deepbind/deepbind RBP.ids", mutseqfilename)
+      command=paste("/path/to/deepbind/deepbind RBP.ids", mutseqfilename)
       ps_hat=as.numeric(system(command,intern=T)[2])
       
       #calculate score (original score)
@@ -148,7 +148,7 @@ for (i in 1:(n+m-1)){
   write.table(wtseq,"wildtype_seq.seq",sep="\t",col.names=F,row.names=F,quote=F)
   
   #run deepbind to get the score p(s)
-  command="/u/nobackup/yxing/PROJECT/yidazhan/research/software/deepbind/deepbind RBP.ids wildtype_seq.seq"
+  command="/path/to/deepbind/deepbind RBP.ids wildtype_seq.seq"
   ps=as.numeric(system(command,intern=T)[2])
   #fill the 4x20 matrix
   tempscore=windowscore_calculator(windowscore,windowscore_WT,windowscore_WT0,windowscore_WT00,windowscore_MUT,windowscore_MUT0,windowscore_MUT00,wtseq,ps,i)

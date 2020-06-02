@@ -159,7 +159,7 @@ oribrainregion[which(oribrainregion=="Brain - Nucleus accumbens (basal ganglia)"
 oribrainregion[which(oribrainregion=="Brain - Putamen (basal ganglia)")]="Brain-Putamenbasalganglia"
 oribrainregion[which(oribrainregion=="Brain - Spinal cord (cervical c-1)")]="Brain-Spinalcordcervicalc-1"
 oribrainregion[which(oribrainregion=="Brain - Substantia nigra")]="Brain-Substantianigra"
-setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/V7_expression_TPM")
+setwd("/input/to/GTEx/processed/gene/expression/data")
 IDconversion=read.table("SRRID_2_GTEXID.txt",sep="\t",header=T)
 rownames(IDconversion)=IDconversion[,"sampleID"]
 

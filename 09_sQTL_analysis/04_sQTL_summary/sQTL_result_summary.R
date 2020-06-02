@@ -360,10 +360,6 @@ mart <- biomaRt::useMart(biomart = "ENSEMBL_MART_ENSEMBL",dataset = "hsapiens_ge
 t2g=try(suppressMessages(biomaRt::getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id","external_gene_name","description"), mart = mart)),silent=TRUE)   
 if (!(inherits(t2g,"try-error"))){ 
   t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id,ens_gene = ensembl_gene_id, ext_gene = external_gene_name, genetitle=description)
-}else{
-  print("cannot connect to BiomaRt")
-  setwd("/u/home/y/yidazhan")
-  t2g=as.matrix(read.table("t2g.txt",sep="\t",header=T))
 }
 
 

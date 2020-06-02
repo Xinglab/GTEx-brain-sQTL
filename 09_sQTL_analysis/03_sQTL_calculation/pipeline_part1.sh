@@ -32,7 +32,6 @@ cd $rootoutput
 #################################################                 
 #1. generate genotype file for each brain region#
 #################################################
-#example: python /u/scratch2/scratch2/p/panyang/sQTL/scripts/generateRaw.py /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/Brain-Cortex/SRR_ID.txt /u/scratch2/scratch2/p/panyang/sQTL/Genotype_450_maf0.01.map /u/scratch2/scratch2/p/panyang/GTEx_genotype/GTEx_Analysis_20150112_OMNI_2.5M_5M_450Indiv_chr1to22_genot_imput_info04_maf01_HWEp1E6_ConstrVarIDs.vcf Brain-Cortex
 logfile="generate_genotype_file_for_"$brain_region".log"
 #using V7 genotype
 /usr/bin/python2.6 $code_folder/1_my_generateRaw_V7.py $splicing_input/$brain_region/"SRR_ID.txt" $genotype_map_path/$genotype_map_name $genotype_vcf_path/$genotype_vcf_name $brain_region $brain_metadata > $logfile
@@ -44,8 +43,6 @@ date
 #2. split genotypes by chr for parallelization#
 ###############################################
 cd $rootoutput/$brain_region
-#example (original genotype): python /u/scratch2/p/panyang/sQTL/scripts/split_raw_file_each_chr.py /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/test_run/Brain-Hypothalamus/Genotype_450_maf0.01.map_tpose.raw /u/scratch2/p/panyang/sQTL/Genotype_450_maf0.01.map /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/test_run/Brain-Hypothalamus
-#example (permuted genotype): python /u/scratch2/p/panyang/sQTL/scripts/split_raw_file_each_chr.py /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/test_run/Brain-Hypothalamus/Genotype_450_maf0.01.map_tpose_perm1.raw /u/scratch2/p/panyang/sQTL/Genotype_450_maf0.01.map /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/test_run/Brain-Hypothalamus
 logfile="split_genotype_by_chr_for_"$brain_region".log"
 /usr/bin/python2.6 $code_folder/2_split_raw_file_each_chr.py $rootoutput/$brain_region/$genotype_map_name"_tpose.raw" $genotype_map_path/$genotype_map_name $rootoutput/$brain_region > $logfile
 
@@ -56,7 +53,6 @@ date
 #3. generate submission file#
 #############################
 cd $rootoutput/$brain_region
-#example: python /u/scratch2/p/panyang/sQTL/scripts/make.submission.py /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/exon_info.fromGTF.SE.txt /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/Brain-AnteriorcingulatecortexBA24/GTEx_brain_totalRC.txt /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/Brain-AnteriorcingulatecortexBA24/GTEx_brain_IC.txt Brain-AnteriorcingulatecortexBA24 /u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project/analysis/1_GLMM/sQTL/input_splicing/test_run/Brain-AnteriorcingulatecortexBA24
 logfile="generate_submission_file_for_"$brain_region".log"
 /usr/bin/python2.6 $code_folder/3_make.submission.py $splicing_input/"exon_info.fromGTF."$splicetype".txt" $splicing_input/$brain_region/"GTEx_brain_totalRC.txt" $splicing_input/$brain_region/"GTEx_brain_IC.txt" $brain_region $rootoutput/$brain_region $genotype_map_name $code_folder $PSItype $rootoutput > $logfile
 

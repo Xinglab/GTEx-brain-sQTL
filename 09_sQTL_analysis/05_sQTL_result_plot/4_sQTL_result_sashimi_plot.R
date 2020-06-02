@@ -79,7 +79,7 @@ effectlengthsubset=try(suppressMessages(read.table(paste("subset_",counttype,".r
 if (!(inherits(effectlengthsubset,"try-error"))){       #if we have already have the sutset file (the original file is too big)
   effectlength=effectlengthsubset
 }else{      #if we don't, we need to generate that
-  setwd("/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/brain_rMATS_post")
+  setwd("/path/to/rMATS/post/result")
   effectlengthfull=fread(paste(counttype,".raw.input.",splicetype,".txt",sep=""),sep="\t",header=T)
   effectlengthfull=as.data.frame(effectlengthfull)
   
@@ -191,7 +191,7 @@ for (br in 1:length(brainregionlist)){
         samplesize=c(length(sampleID0),length(sampleID1),length(sampleID2))
         
         ###make sashimi plot###
-        rootbam="/u/nobackup/yxing/PROJECT/yidazhan/research/rotation_project/GTEx_brain_project_V7/data/V7_all_bam_soft_link/"   #the folder containing all BAM files
+        rootbam="/path/to/BAM/files/"   #the folder containing all BAM files
         
         exoninfo=getexon(exon)
         #generate folders for the plot
@@ -258,7 +258,7 @@ for (br in 1:length(brainregionlist)){
                       #"\n",
                       #"module load samtools",       
                       #"\n",
-                      "/u/nobackup/yxing/PROJECT/yidazhan/research/software/anaconda2/bin/rmats2sashimiplot",
+                      "/path/to/rmats2sashimiplot",
                       "--b1", b1,
                       "--b2", b2,
                       "-t", splicetype,
