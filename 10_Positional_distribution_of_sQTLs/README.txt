@@ -1,1 +1,0 @@
-This folder contains code for investigating the relationship among SNP position, significance, and brain region specificity of sQTLs

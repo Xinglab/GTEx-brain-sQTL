@@ -1,1 +1,0 @@
-This folder contains code for the prioritization of causal sQTL cis variants and trans regulators using regional variation of sQTL signals. 

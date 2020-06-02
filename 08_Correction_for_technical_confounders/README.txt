@@ -1,1 +1,0 @@
-The purpose of this code is to correct for confounding factors of the PSI values for downstream sQTL analysis.

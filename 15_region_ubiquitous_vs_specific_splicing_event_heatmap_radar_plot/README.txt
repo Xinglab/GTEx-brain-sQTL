@@ -1,1 +1,0 @@
-This folder contains code for the comparison between regionally ubiquitous sQTLs and regionally specific sQTLs.

@@ -1,1 +1,0 @@
-This folder contains code for the colocalization analysis between sQTL and GWAS signals.
